@@ -1,0 +1,35 @@
+.project-item {
+    padding: 0 10px; /* Space between items */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+.project-img {
+    overflow: hidden; /* Hide overflow to create a zoom effect */
+}
+
+.project-img img {
+    transition: transform 0.3s; /* Smooth zoom transition */
+}
+
+.project-item:hover {
+    transform: scale(1.05); /* Slight zoom-in effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.project-item:hover .project-img img {
+    transform: scale(1.1); /* Zoom in on the image */
+}
+/* Increase size of the dots */
+.slick-dots li button {
+    width: 12px; /* Adjust width */
+    height: 12px; /* Adjust height */
+    border-radius: 50%; /* Make them circular */
+    background: #007bff; /* Change the color */
+    opacity: 1; /* Make sure they are fully visible */
+}
+
+.slick-dots li.slick-active button {
+    background: #0056b3; /* Change the color of the active dot */
+}
+
