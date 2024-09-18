@@ -4,6 +4,7 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import OwlCarousel from 'react-owl-carousel';
 import CarouselComponent from '../Components/CarouselComponent ';
 import Services from '../Components/Services';
+import './home.css'
 
 
 function Home() {
@@ -99,20 +100,22 @@ function Home() {
                                 <p className="text-dark mb-0"><i className="fas fa-check-circle text-primary me-1"></i> Software Development</p>
                             </div>
                         </div>
-                        <div className="row g-4 justify-content-between mb-5">
-                            <div className="col-xl-5"><a href="#" className="btn btn-primary rounded-pill py-3 px-5">Discover More</a></div>
-                            <div className="col-xl-7 mb-5">
-                                <div className="about-customer d-flex position-relative">
-                                    <img src="img/customer-img-1.jpg" className="img-fluid btn-xl-square position-absolute" style={{left: '0', top: '0'}} alt="Image" />
-                                    <img src="img/customer-img-2.jpg" className="img-fluid btn-xl-square position-absolute" style={{left: '45px', top: '0'}} alt="Image" />
-                                    <img src="img/customer-img-3.jpg" className="img-fluid btn-xl-square position-absolute" style={{left: '90px', top: '0'}} alt="Image" />
-                                    <img src="img/customer-img-1.jpg" className="img-fluid btn-xl-square position-absolute" style={{left: '135px' , top: '0'}} alt="Image" />
-                                    <div Name="position-absolute text-dark" style={{left: '220px', top: '10px'}}>
-                                        <p className="mb-0">Trusted</p>
-                                        <p className="mb-0">Clients</p>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="row g-5 justify-content-between mb-5">
+                          <div className="col-xl-7 mb-5">
+                              <div className="about-customer d-flex position-relative marquee-container">
+                                  <div className="marquee">
+                                      <img src="img/partners/cleo.png" className="img-fluid animate-img" style={{ width: '120px', marginRight: '20px' }} alt="Image" />
+                                      <img src="img/partners/dicel.png" className="img-fluid animate-img" style={{ width: '120px', marginRight: '20px' }} alt="Image" />
+                                      <img src="img/partners/kc.png" className="img-fluid animate-img" style={{ width: '120px', marginRight: '20px' }} alt="Image" />
+                                      <img src="img/partners/king.png" className="img-fluid animate-img" style={{ width: '120px', marginRight: '20px' }} alt="Image" />
+                                      {/* Duplicate the images to make the marquee continuous */}
+                                      <img src="img/partners/cleo.png" className="img-fluid animate-img" style={{ width: '120px', marginRight: '20px' }} alt="Image" />
+                                      <img src="img/partners/dicel.png" className="img-fluid animate-img" style={{ width: '120px', marginRight: '20px' }} alt="Image" />
+                                      <img src="img/partners/kc.png" className="img-fluid animate-img" style={{ width: '120px', marginRight: '20px' }} alt="Image" />
+                                      <img src="img/partners/king.png" className="img-fluid animate-img" style={{ width: '120px', marginRight: '20px' }} alt="Image" />
+                                  </div>
+                              </div>
+                          </div>
                         </div>
                         <div className="row g-4 text-center align-items-center justify-content-center">
                             <div className="col-sm-4">

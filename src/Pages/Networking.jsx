@@ -69,48 +69,48 @@ function Networking() {
         {/* <!-- Header End --> */}
 
         {/* <!-- Networking Infrastructure Service Start --> */}
-<div className="container-fluid py-5">
-    <div className="container py-5">
-        <div className="row g-5 align-items-center">
-            <div className="col-lg-6 wow fadeInLeft" data-wow-delay="0.1s">
-                <div className="pb-5">
-                    <h4 className="text-primary">Our Services</h4>
-                    <h1 className="display-4">Networking Infrastructure Service</h1>
-                </div>
-                <div className="bg-light rounded p-4">
-                    <p className="my-2">
-                        At Fabritech, we specialize in providing robust and scalable networking infrastructure services. 
-                        Whether you are a small business or a large enterprise, our expert team is committed to ensuring 
-                        that your network is secure, efficient, and able to meet the demands of your operations. 
-                        From setting up wired and wireless networks to network maintenance and security, 
-                        we provide end-to-end solutions tailored to your specific needs. Our services include:
-                    </p>
-                    <ul>
-                        <li>Network design and implementation</li>
-                        <li>Router and switch configuration</li>
-                        <li>Wireless networking solutions</li>
-                        <li>Network security and firewall setup</li>
-                        <li>Network monitoring and troubleshooting</li>
-                    </ul>
-                    <p className="my-2">
-                        Our team ensures minimal downtime and fast, reliable connections to keep your business running smoothly. 
-                        With years of experience in networking infrastructure, we are equipped to handle even the most complex 
-                        networking challenges. Contact us today to learn how we can help enhance your IT infrastructure.
-                    </p>
-                </div>
-            </div>
-            <div className="col-lg-6 wow fadeInRight" data-wow-delay="0.3s">
-                <div className="faq-img RotateMoveRight rounded">
-                    <img src="img/netServ.jpg" className="img-fluid rounded w-100" style={{height: '650px'}} alt="Image" />
+        <div className="container-fluid py-5">
+            <div className="container py-5">
+                <div className="row g-5 align-items-center">
+                    <div className="col-lg-6 wow fadeInLeft" data-wow-delay="0.1s">
+                        <div className="pb-5">
+                            <h4 className="text-primary">Our Services</h4>
+                            <h1 className="display-4">Networking Infrastructure Service</h1>
+                        </div>
+                        <div className="bg-light rounded p-4">
+                            <p className="my-2">
+                                At Fabritech, we specialize in providing robust and scalable networking infrastructure services. 
+                                Whether you are a small business or a large enterprise, our expert team is committed to ensuring 
+                                that your network is secure, efficient, and able to meet the demands of your operations. 
+                                From setting up wired and wireless networks to network maintenance and security, 
+                                we provide end-to-end solutions tailored to your specific needs. Our services include:
+                            </p>
+                            <ul>
+                                <li>Network design and implementation</li>
+                                <li>Router and switch configuration</li>
+                                <li>Wireless networking solutions</li>
+                                <li>Network security and firewall setup</li>
+                                <li>Network monitoring and troubleshooting</li>
+                            </ul>
+                            <p className="my-2">
+                                Our team ensures minimal downtime and fast, reliable connections to keep your business running smoothly. 
+                                With years of experience in networking infrastructure, we are equipped to handle even the most complex 
+                                networking challenges. Contact us today to learn how we can help enhance your IT infrastructure.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="col-lg-6 wow fadeInRight" data-wow-delay="0.3s">
+                        <div className="faq-img RotateMoveRight rounded">
+                            <img src="img/netServ.jpg" className="img-fluid rounded w-100" style={{height: '650px'}} alt="Image" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-{/* <!-- Networking Infrastructure Service End --> */}
+        {/* <!-- Networking Infrastructure Service End --> */}
 
-{/* <!-- Footer Start --> */}
-<div className="container-fluid footer py-1 wow fadeIn" data-wow-delay="0.2s">
+        {/* <!-- Footer Start --> */}
+        <div className="container-fluid footer py-1 wow fadeIn" data-wow-delay="0.2s">
             <div className="container py-5">
                 <div className="row g-5">
                     {/* First Column - Logo and Description */}
