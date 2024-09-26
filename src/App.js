@@ -16,10 +16,7 @@ import Internship from './Pages/Internship';
 
 function App() {
   return (
-    <div className="App">
-       {/* <Home />  */}
-       {/* <About /> */}
-       {/* <Contact /> */}
+    
       <Router>
         <Routes>
           <Route path='/' element = {<Home />} />
@@ -34,7 +31,6 @@ function App() {
           <Route path='/internship' element = {<Internship />} />
         </Routes>
       </Router>
-    </div>
   );
 }
 

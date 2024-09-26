@@ -1,61 +1,73 @@
+/* Carousel container */
+.header-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Individual carousel items */
 .header-carousel-item {
-    position: relative;
-  }
-  
-  .carousel-content {
-    position: absolute;
-    top: 50%;  /* Vertically center */
-    left: 50%;  /* Horizontally center */
-    transform: translate(-50%, -50%);  /* Adjust positioning */
-    text-align: center;  /* Center text */
-    z-index: 1;  /* Ensure the text is above the image */
-  }
-  
-  .carousel-content h1 {
-    font-size: 3rem;
-    font-weight: bold;
-    color: white;
-  }
-  
-  .carousel-content p {
-    font-size: 1.25rem;
-    color: white;
-  }
-  
-  .carousel-content a {
-    margin-right: 15px;
-  }
-  .custom-carousel-arrow {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    background-color: #0d6efd; /* Primary button color */
-    border-radius: 50%; /* Makes it circular */
-    text-align: center;
-    vertical-align: middle;
-    line-height: 50px; /* Centers the arrow vertically */
-    color: white; /* Arrow color */
-    font-size: 24px; /* Adjust arrow size */
-    transition: background-color 0.3s ease;
+  position: relative;
 }
 
-.custom-carousel-arrow:hover {
-    background-color: #004085; /* Darker shade on hover */
-    color: #fff; /* Maintain white color on hover */
+/* Image styling */
+.header-carousel-item img {
+  width: 100%;
+  object-fit: cover;
 }
 
-.custom-carousel-prev,
-.custom-carousel-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
+/* Carousel caption styling */
+.carousel-caption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
 }
 
-.custom-carousel-prev {
-    left: 15px;
+/* Styling for the inner content of the carousel (text, buttons) */
+.carousel-caption-inner {
+  position: relative;
+  z-index: 3;
 }
 
-.custom-carousel-next {
-    right: 15px;
+.carousel-caption-inner h1,
+.carousel-caption-inner p,
+.carousel-caption-inner a {
+  color: #fff;
+  z-index: 3;
+}
+
+/* Custom animations for carousel */
+.fadeInUp {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInUp 1s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ensure buttons are clickable and styled correctly */
+.btn {
+  z-index: 3;
+  pointer-events: auto;
+}
+
+/* Custom navigation arrows */
+.custom-prev-arrow,
+.custom-next-arrow {
+  color: #fff;
+  font-size: 2rem;
+  padding: 0 10px;
+  z-index: 4;
+  pointer-events: auto;
 }
