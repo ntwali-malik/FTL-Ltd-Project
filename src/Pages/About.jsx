@@ -44,9 +44,12 @@ function About() {
                 >
                   <i className="fab fa-linkedin-in text-white"></i>
                 </a>
-                <a href="whatsapp://send?text=Hello,I'd like to chat with you about Fabritech.rw!&amp;phone=+250788601280" className="btn btn-primary btn-square rounded-circle nav-fill me-3">
-  <i className="fab fa-whatsapp text-white"></i>
-</a>
+                <a
+                  href="whatsapp://send?text=Hello,I'd like to chat with you about Fabritech.rw!&amp;phone=+250788601280"
+                  className="btn btn-primary btn-square rounded-circle nav-fill me-3"
+                >
+                  <i className="fab fa-whatsapp text-white"></i>
+                </a>
               </div>
             </div>
           </div>
@@ -504,9 +507,366 @@ function About() {
                   registrations, and donations.
                 </p>
               </div>
+            </div>
+
+            {/* RwandAir */}
+            <div className="row align-items-start mb-4">
+              <div className="col-md-3">
+                <img
+                  src="img/partners/RwandAir-logo.wine.png"
+                  alt="Client 1 Logo"
+                  className="img-fluid"
+                  style={{ maxWidth: "150px" }}
+                />
+              </div>
+              <div className="col-md-9">
+                <h3 className="font-weight-bold">RwandAir</h3>
+                <h6>
+                  <b>Address: </b>HQ - Kigali, Rwanda; Kamembe Office; Town
+                  Office
+                </h6>
+                <p style={{ textAlign: "justify" }}>
+                  Our company had the honor of providing RwandAir with Starlink
+                  internet services across multiple locations, including their
+                  HQ, Kamembe Office, and Town Office. The internet solution we
+                  implemented ensures reliable and high-speed connectivity,
+                  enabling seamless communication and operations for the
+                  airline. This service enhances RwandAir's ability to stay
+                  connected with its teams, customers, and partners, ensuring
+                  smooth business operations and improving overall efficiency.
+                </p>
+              </div>
+            </div>
+
+            {/* JICA */}
+            <div className="row align-items-start mb-4">
+              <div className="col-md-3">
+                <img
+                  src="img/partners/jica.svg"
+                  alt="Client 1 Logo"
+                  className="img-fluid"
+                  style={{ maxWidth: "150px" }}
+                />
+              </div>
+              <div className="col-md-9">
+                <h3 className="font-weight-bold">
+                  JICA (Japan International Cooperation Agency)
+                </h3>
+                <h6>
+                  <b>Address: </b> Kigali, Rwanda
+                </h6>
+                <p style={{ textAlign: "justify" }}>
+                  We were privileged to provide high-speed Starlink internet
+                  services to JICA at their various offices in Rwanda. This
+                  cutting-edge connectivity solution empowers JICA's teams to
+                  successfully execute their mission of supporting development
+                  projects and fostering partnerships within the country. With
+                  dependable internet access, JICA can improve communication,
+                  optimize project management, and ensure smooth operations,
+                  enabling them to further promote sustainable development and
+                  collaboration in Rwanda.
+                </p>
+              </div>
+            </div>
+
+            {/* RBA */}
+            <div className="row align-items-start mb-4">
+              <div className="col-md-3">
+                <img
+                  src="img/partners/rba.png"
+                  alt="Client 1 Logo"
+                  className="img-fluid"
+                  style={{ maxWidth: "150px" }}
+                />
+              </div>
+              <div className="col-md-9">
+                <h3 className="font-weight-bold">
+                  RBA (Rwanda Broadcasting Agency)
+                </h3>
+                <h6>
+                  <b>Address: </b> Kigali, Rwanda
+                </h6>
+                <p style={{ textAlign: "justify" }}>
+                  Our company had the privilege of providing high-speed Starlink
+                  internet services to RBA, ensuring robust and reliable
+                  connectivity across their operations. With this internet
+                  solution, RBA can efficiently manage broadcasting services,
+                  streamline communications, and enhance content delivery to
+                  their audience. The Starlink service supports RBA's mission to
+                  provide timely and accurate information, keeping Rwandans
+                  informed through seamless and uninterrupted media coverage.
+                </p>
+              </div>
+            </div>
+
+            {/* Inkomoko */}
+            <div className="row align-items-start mb-4">
+              <div className="col-md-3">
+                <img
+                  src="img/partners/inkomoko.png"
+                  alt="Client 1 Logo"
+                  className="img-fluid"
+                  style={{ maxWidth: "150px" }}
+                />
+              </div>
+              <div className="col-md-9">
+                <h3 className="font-weight-bold">Inkomoko</h3>
+                <h6>
+                  <b>Address: </b> Musanze, Karongi, Huye, Kirehe, Gatsibo
+                </h6>
+                <p style={{ textAlign: "justify" }}>
+                  Our company had the privilege of providing Inkomoko with
+                  high-speed Starlink internet services across their various
+                  locations, including Musanze, Karongi, Huye, Kirehe, and
+                  Gatsibo. This solution ensures fast and reliable internet
+                  connectivity, enabling Inkomoko to maintain smooth operations
+                  across all their offices. With this service, Inkomoko can
+                  efficiently manage communication, support their teams, and
+                  continue their mission of empowering entrepreneurs in Rwanda,
+                  even in remote areas.
+                </p>
+              </div>
+            </div>
+
+            {/* Inkomoko */}
+            <div className="row align-items-start mb-4">
+              <div className="col-md-3">
+                <img
+                  src="img/partners/sfh.jpg"
+                  alt="Client 1 Logo"
+                  className="img-fluid"
+                  style={{ maxWidth: "150px" }}
+                />
+              </div>
+              <div className="col-md-9">
+                <h3 className="font-weight-bold">
+                  SFH (Society for Family Health)
+                </h3>
+                <h6>
+                  <b>Address: </b> Kigali, Rwanda
+                </h6>
+                <p style={{ textAlign: "justify" }}>
+                  Our company had the honor of providing high-speed Starlink
+                  internet services to SFH across five different sites in
+                  Rwanda. This reliable internet solution ensures seamless
+                  communication and efficient operations at each location,
+                  enabling SFH to effectively manage health programs and
+                  outreach initiatives. With enhanced connectivity, SFH can
+                  better serve communities, facilitate data sharing, and support
+                  its mission of improving public health and well-being across
+                  the country.
+                </p>
+              </div>
+            </div>
+
+            {/* DISCOVERY INTERNATIONAL SCHOOL */}
+            <div className="row align-items-start mb-4">
+              <div className="col-md-3">
+                <img
+                  src="img/partners/discover.png"
+                  alt="Client 1 Logo"
+                  className="img-fluid"
+                  style={{ maxWidth: "150px" }}
+                />
+              </div>
+              <div className="col-md-9">
+                <h3 className="font-weight-bold">
+                  DISCOVERY INTERNATIONAL SCHOOL
+                </h3>
+                <h6>
+                  <b>Address: </b> Kigali, Rwanda
+                </h6>
+                <p style={{ textAlign: "justify" }}>
+                  Our company had the privilege of delivering Starlink internet
+                  services to Discovery International School, ensuring fast and
+                  reliable connectivity for the school's operations. This
+                  advanced internet solution supports the school's educational
+                  activities, enabling teachers and students to access online
+                  resources, facilitate virtual learning, and enhance
+                  communication. With improved internet access, Discovery
+                  International School can continue to provide a high-quality
+                  learning experience, fostering academic excellence and
+                  innovation in education.
+                </p>
+              </div>
+            </div>
+
+            {/* BSC LTD */}
+            <div className="row align-items-start mb-4">
+              <div className="col-md-3">
+                <img
+                  src="img/partners/BSC.png"
+                  alt="Client 1 Logo"
+                  className="img-fluid"
+                  style={{ maxWidth: "150px" }}
+                />
+              </div>
+              <div className="col-md-9">
+                <h3 className="font-weight-bold">BSC LTD</h3>
+                <h6>
+                  <b>Address: </b> Kigali, Rwanda
+                </h6>
+                <p style={{ textAlign: "justify" }}>
+                  Our company had the privilege of implementing Starlink
+                  internet services for BSC Ltd at their headquarters in Kigali.
+                  This high-speed internet solution ensures that BSC Ltd
+                  benefits from reliable and fast connectivity, enhancing their
+                  operational efficiency. With improved internet access, BSC Ltd
+                  can optimize communication, streamline business processes, and
+                  continue delivering top-tier services across their various
+                  projects and initiatives.
+                </p>
+              </div>
+            </div>
+
+            {/* Qatar Embassy */}
+            <div className="row align-items-start mb-4">
+              <div className="col-md-3">
+                <img
+                  src="img/partners/Qatar.png"
+                  alt="Client 1 Logo"
+                  className="img-fluid"
+                  style={{ maxWidth: "150px" }}
+                />
+              </div>
+              <div className="col-md-9">
+                <h3 className="font-weight-bold">QATAR EMBASSY</h3>
+                <h6>
+                  <b>Address: </b> HQ - Kigali, Rwanda
+                </h6>
+                <p style={{ textAlign: "justify" }}>
+                  Our company had the honor of providing high-speed Starlink
+                  internet services to the Qatar Embassy at their headquarters
+                  in Kigali. This reliable internet solution ensures seamless
+                  communication and efficient operations for the embassy staff.
+                  With enhanced connectivity, the Qatar Embassy can effectively
+                  manage diplomatic relations, provide consular services, and
+                  support its mission in Rwanda with greater ease and
+                  efficiency.
+                </p>
+              </div>
+            </div>
+
+            {/* MIGHT ENGINEERING CO */}
+            <div className="row align-items-start mb-4">
+              <div className="col-md-3">
+                <img
+                  src="img/partners/mightEngineering.webp"
+                  alt="Client 1 Logo"
+                  className="img-fluid"
+                  style={{ maxWidth: "150px" }}
+                />
+              </div>
+              <div className="col-md-9">
+                <h3 className="font-weight-bold">MIGHT ENGINEERING CO</h3>
+                <h6>
+                  <b>Address: </b> Kigali, Rwanda
+                </h6>
+                <p style={{ textAlign: "justify" }}>
+                  Our company had the honor of providing Starlink internet
+                  services to Might Engineering Co., ensuring fast and reliable
+                  connectivity for their operations. This solution enables the
+                  company to efficiently manage projects, communicate with
+                  clients, and support their engineering teams in delivering
+                  high-quality services. With enhanced internet access, Might
+                  Engineering Co. can streamline its processes, improve
+                  collaboration, and continue to drive innovation and excellence
+                  in the engineering sector.
+                </p>
+              </div>
+            </div>
+
+            {/* HOPE HEAVEN ACADEMY */}
+            <div className="row align-items-start mb-4">
+              <div className="col-md-3">
+                <img
+                  src="img/partners/hopeHeaven.jpg"
+                  alt="Client 1 Logo"
+                  className="img-fluid"
+                  style={{ maxWidth: "150px" }}
+                />
+              </div>
+              <div className="col-md-9">
+                <h3 className="font-weight-bold">HOPE HEAVEN ACADEMY</h3>
+                <h6>
+                  <b>Address: </b> Kigali, Rwanda
+                </h6>
+                <p style={{ textAlign: "justify" }}>
+                  Our company had the honor of providing Starlink internet
+                  services to Hope Heaven Academy, ensuring reliable and
+                  high-speed connectivity for the school. This internet solution
+                  enhances the academy's ability to offer digital learning
+                  resources, support virtual classes, and improve overall
+                  communication between staff, students, and parents. With
+                  seamless internet access, Hope Heaven Academy continues to
+                  empower its students with a modern and connected learning
+                  environment, fostering growth and academic achievement.
+                </p>
+              </div>
+            </div>
+
+            {/* EDPU AFRICA */}
+            <div className="row align-items-start mb-4">
+              <div className="col-md-3">
+                <img
+                  src="img/partners/edpuafrica.jpeg"
+                  alt="Client 1 Logo"
+                  className="img-fluid"
+                  style={{ maxWidth: "150px" }}
+                />
+              </div>
+              <div className="col-md-9">
+                <h3 className="font-weight-bold">EDPU AFRICA</h3>
+                <h6>
+                  <b>Address: </b> Kigali, Rwanda
+                </h6>
+                <p style={{ textAlign: "justify" }}>
+                  Our company had the privilege of implementing Starlink
+                  internet services for EDPU Africa, ensuring fast and reliable
+                  connectivity for their operations. This high-speed internet
+                  solution enables EDPU Africa to effectively manage its
+                  programs, facilitate communication with partners, and support
+                  its mission of promoting education and development across the
+                  continent. With enhanced connectivity, EDPU Africa can
+                  streamline its initiatives, reach more beneficiaries, and
+                  continue making a positive impact in the education sector.
+                </p>
+              </div>
+            </div>
+
+            {/* NDARU LUXURY SUITE */}
+            <div className="row align-items-start mb-4">
+              <div className="col-md-3">
+                <img
+                  src="img/partners/ndaru.png"
+                  alt="Client 1 Logo"
+                  className="img-fluid"
+                  style={{ maxWidth: "150px" }}
+                />
+              </div>
+              <div className="col-md-9">
+                <h3 className="font-weight-bold">NDARU LUXURY SUITE</h3>
+                <h6>
+                  <b>Address: </b> Kigali, Rwanda
+                </h6>
+                <p style={{ textAlign: "justify" }}>
+                  Our company had the privilege of providing high-speed Starlink
+                  internet services to Ndarura Luxury Suite, ensuring fast and
+                  reliable connectivity for their guests and operations. This
+                  advanced internet solution enhances the guest experience by
+                  enabling seamless access to online services and entertainment.
+                  With improved connectivity, Ndarura Luxury Suite can
+                  efficiently manage bookings, streamline communications, and
+                  provide exceptional service, ensuring a luxurious stay for all
+                  visitors.
+                </p>
+              </div>
+            </div>
+            <div className="row align-items-start mb-4">
               <h2 className="text-3xl font-bold text-center mb-8 py-4 text-primary">
                 Our Partners
               </h2>
+
               <div>
                 <Marquee speed={50} gradient={false}>
                   <img
@@ -606,7 +966,7 @@ function About() {
                     }}
                   />
                   <img
-                    src="img/partners/cleo.png"
+                    src="img/partners/rba.png"
                     className="img-fluid"
                     alt="Image"
                     style={{
@@ -618,7 +978,7 @@ function About() {
                     }}
                   />
                   <img
-                    src="img/partners/dicel.png"
+                    src="img/partners/discover.png"
                     className="img-fluid"
                     alt="Image"
                     style={{
@@ -630,7 +990,7 @@ function About() {
                     }}
                   />
                   <img
-                    src="img/partners/kc.png"
+                    src="img/partners/inkomoko.png"
                     className="img-fluid"
                     alt="Image"
                     style={{
@@ -642,7 +1002,7 @@ function About() {
                     }}
                   />
                   <img
-                    src="img/partners/king.png"
+                    src="img/partners/jica.svg"
                     className="img-fluid"
                     alt="Image"
                     style={{
@@ -654,7 +1014,7 @@ function About() {
                     }}
                   />
                   <img
-                    src="img/partners/mtn.jpg"
+                    src="img/partners/RwandAir-Logo.wine.png"
                     className="img-fluid"
                     alt="Image"
                     style={{
@@ -666,7 +1026,7 @@ function About() {
                     }}
                   />
                   <img
-                    src="img/partners/nss.png"
+                    src="img/partners/sfh.jpg"
                     className="img-fluid"
                     alt="Image"
                     style={{
@@ -678,7 +1038,7 @@ function About() {
                     }}
                   />
                   <img
-                    src="img/partners/tele10.png"
+                    src="img/partners/BSC.png"
                     className="img-fluid"
                     alt="Image"
                     style={{
@@ -690,7 +1050,43 @@ function About() {
                     }}
                   />
                   <img
-                    src="img/partners/vss.png"
+                    src="img/partners/hopeHeaven.jpg"
+                    className="img-fluid"
+                    alt="Image"
+                    style={{
+                      width: "100px",
+                      height: "80px",
+                      marginRight: "20px",
+                      borderRadius: "0",
+                      marginBottom: "10px",
+                    }}
+                  />
+                  <img
+                    src="img/partners/mightEngineering.webp"
+                    className="img-fluid"
+                    alt="Image"
+                    style={{
+                      width: "100px",
+                      height: "80px",
+                      marginRight: "20px",
+                      borderRadius: "0",
+                      marginBottom: "10px",
+                    }}
+                  />
+                  <img
+                    src="img/partners/edpuafrica.jpeg"
+                    className="img-fluid"
+                    alt="Image"
+                    style={{
+                      width: "100px",
+                      height: "80px",
+                      marginRight: "20px",
+                      borderRadius: "0",
+                      marginBottom: "10px",
+                    }}
+                  />
+                  <img
+                    src="img/partners/ndaru.png"
                     className="img-fluid"
                     alt="Image"
                     style={{
@@ -709,61 +1105,105 @@ function About() {
       </section>
       {/* our Clients Ends */}
 
-       {/* <!-- Footer Start --> */}
-       <div className="container-fluid footer py-1 wow fadeIn" data-wow-delay="0.2s">
-            <div className="container py-5">
-                <div className="row g-5">
-                    {/* First Column - Logo and Description */}
-                    <div className="col-md-6 col-lg-6 col-xl-3">
-                        <div className="footer-item d-flex flex-column">
-                            <div className="footer-item">
-                                {/* Company logo */}
-                                <img src="img/logoF.jpg.png" alt="Company Logo" style={{ width: "150px", height: "auto" }} className="mb-4" />
-                                
-                                {/* Company description */}
-                                <p className="mb-3">
-                                    At Fabritech, we are dedicated to providing top-notch IT solutions and services. From networking to surveillance, 
-                                    we ensure high standards in every project.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+      {/* <!-- Footer Start --> */}
+      <div
+        className="container-fluid footer py-1 wow fadeIn"
+        data-wow-delay="0.2s"
+      >
+        <div className="container py-5">
+          <div className="row g-5">
+            {/* First Column - Logo and Description */}
+            <div className="col-md-6 col-lg-6 col-xl-3">
+              <div className="footer-item d-flex flex-column">
+                <div className="footer-item">
+                  {/* Company logo */}
+                  <img
+                    src="img/logoF.jpg.png"
+                    alt="Company Logo"
+                    style={{ width: "150px", height: "auto" }}
+                    className="mb-4"
+                  />
 
-                    {/* Second Column - Explore Links */}
-                    <div className="col-md-6 col-lg-6 col-xl-3">
-                        <div className="footer-item d-flex flex-column">
-                            <h4 className="text-white mb-4">Explore</h4>
-                            <a href="/"><i className="fas fa-angle-right me-2"></i> Home</a>
-                            <a href="/service"><i className="fas fa-angle-right me-2"></i> Services</a>
-                            <a href="/about"><i className="fas fa-angle-right me-2"></i> About Us</a>
-                            <a href="/contact"><i className="fas fa-angle-right me-2"></i> Contact Us</a>
-                            <a href="/gallery"><i className="fas fa-angle-right me-2"></i> Gallery</a>
-                        </div>
-                    </div>
-
-                    {/* Third Column - Contact Info */}
-                    <div className="col-md-6 col-lg-6 col-xl-3">
-                        <div className="footer-item d-flex flex-column">
-                            <h4 className="text-white mb-4">Contact Info</h4>
-                            <a href="#"><i className="fa fa-map-marker-alt me-2"></i>YYUSSA Plaza, Kisimenti, Remera</a>
-                            <a href="mailto:fabrice.sugira@fabritech.rw"><i className="fas fa-envelope me-2"></i> info@fabritech.com</a>
-                            <a href="tel:+250788601280"><i className="fas fa-phone me-2"></i> +250788601280</a>
-                            {/* Social media icons */}
-                            <div className="d-flex align-items-center">
-                                <a className="btn btn-light btn-md-square me-2" href="
-https://www.facebook.com/profile.php?id=100089523591506&amp;mibextid=ZbWKwL"><i className="fab fa-facebook-f"></i></a>
-                                <a className="btn btn-light btn-md-square me-2" href="https://www.instagram.com/fabritech_ltd"><i className="fab fa-instagram"></i></a>
-                                <a className="btn btn-light btn-md-square me-2" href="https://www.linkedin.com/in/fabritech_ltd"><i className="fab fa-linkedin-in"></i></a>
-                                <a href="whatsapp://send?text=Hello,I'd like to chat with you about Fabritech.rw!&amp;phone=+250788601280" className="btn btn-light btn-md-square me-2">
-  <i className="fab fa-whatsapp text-white"></i>
-</a>
-                            </div>
-                        </div>
-                    </div>
+                  {/* Company description */}
+                  <p className="mb-3">
+                    At Fabritech, we are dedicated to providing top-notch IT
+                    solutions and services. From networking to surveillance, we
+                    ensure high standards in every project.
+                  </p>
                 </div>
+              </div>
             </div>
+
+            {/* Second Column - Explore Links */}
+            <div className="col-md-6 col-lg-6 col-xl-3">
+              <div className="footer-item d-flex flex-column">
+                <h4 className="text-white mb-4">Explore</h4>
+                <a href="/">
+                  <i className="fas fa-angle-right me-2"></i> Home
+                </a>
+                <a href="/service">
+                  <i className="fas fa-angle-right me-2"></i> Services
+                </a>
+                <a href="/about">
+                  <i className="fas fa-angle-right me-2"></i> About Us
+                </a>
+                <a href="/contact">
+                  <i className="fas fa-angle-right me-2"></i> Contact Us
+                </a>
+                <a href="/gallery">
+                  <i className="fas fa-angle-right me-2"></i> Gallery
+                </a>
+              </div>
+            </div>
+
+            {/* Third Column - Contact Info */}
+            <div className="col-md-6 col-lg-6 col-xl-3">
+              <div className="footer-item d-flex flex-column">
+                <h4 className="text-white mb-4">Contact Info</h4>
+                <a href="#">
+                  <i className="fa fa-map-marker-alt me-2"></i>YYUSSA Plaza,
+                  Kisimenti, Remera
+                </a>
+                <a href="mailto:fabrice.sugira@fabritech.rw">
+                  <i className="fas fa-envelope me-2"></i> info@fabritech.com
+                </a>
+                <a href="tel:+250788601280">
+                  <i className="fas fa-phone me-2"></i> +250788601280
+                </a>
+                {/* Social media icons */}
+                <div className="d-flex align-items-center">
+                  <a
+                    className="btn btn-light btn-md-square me-2"
+                    href="
+https://www.facebook.com/profile.php?id=100089523591506&amp;mibextid=ZbWKwL"
+                  >
+                    <i className="fab fa-facebook-f"></i>
+                  </a>
+                  <a
+                    className="btn btn-light btn-md-square me-2"
+                    href="https://www.instagram.com/fabritech_ltd"
+                  >
+                    <i className="fab fa-instagram"></i>
+                  </a>
+                  <a
+                    className="btn btn-light btn-md-square me-2"
+                    href="https://www.linkedin.com/in/fabritech_ltd"
+                  >
+                    <i className="fab fa-linkedin-in"></i>
+                  </a>
+                  <a
+                    href="whatsapp://send?text=Hello,I'd like to chat with you about Fabritech.rw!&amp;phone=+250788601280"
+                    className="btn btn-light btn-md-square me-2"
+                  >
+                    <i className="fab fa-whatsapp text-white"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        {/* <!-- Footer End --> */}
+      </div>
+      {/* <!-- Footer End --> */}
 
       {/* <!-- Copyright Start --> */}
       <div className="container-fluid copyright py-4">

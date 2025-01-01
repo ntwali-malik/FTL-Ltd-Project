@@ -13,6 +13,7 @@ import Networking from './Pages/Networking';
 import CanalDstv from './Pages/CanalDstv';
 import DigitalSecurity from './Pages/DigitalSecurity';
 import Internship from './Pages/Internship';
+import Starlink from './Pages/Starlink';
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
           <Route path='/canalDstv' element = {<CanalDstv />} />
           <Route path='/digitalSecurity' element = {<DigitalSecurity />} />
           <Route path='/internship' element = {<Internship />} />
+          <Route path='/starlink' element = {<Starlink />} />
+
         </Routes>
       </Router>
   );
