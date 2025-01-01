@@ -65,7 +65,7 @@ function About() {
         ></div>
         <div className="container px-0">
           <nav className="navbar navbar-expand-lg navbar-dark bg-white py-3 px-4">
-            <a href="index.html" className="navbar-brand p-0">
+            <a href="/" className="navbar-brand p-0">
               {/* <!-- <h1 classNameName="text-primary m-0"><i classNameName="fas fa-donate me-3"></i>Investa</h1> --> */}
               <img
                 src="img/logoF.jpg.png"
@@ -123,7 +123,7 @@ function About() {
             data-wow-delay="0.3s"
           >
             <li className="breadcrumb-item">
-              <a href="index.html">Home</a>
+              <a href="/">Home</a>
             </li>
             <li className="breadcrumb-item active text-primary">About</li>
           </ol>
