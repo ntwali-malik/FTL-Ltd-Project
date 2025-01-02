@@ -1165,7 +1165,7 @@ function About() {
                   Kisimenti, Remera
                 </a>
                 <a href="mailto:fabrice.sugira@fabritech.rw">
-                  <i className="fas fa-envelope me-2"></i> info@fabritech.com
+                  <i className="fas fa-envelope me-2"></i> info@fabritech.rw
                 </a>
                 <a href="tel:+250788601280">
                   <i className="fas fa-phone me-2"></i> +250788601280
@@ -1212,7 +1212,7 @@ https://www.facebook.com/profile.php?id=100089523591506&amp;mibextid=ZbWKwL"
             <div className="col-md-6 text-center text-md-start mb-md-0">
               <span className="text-body">
                 Fabritech, <i className="fas fa-copyright text-light me-2"></i>
-                All rights reserved 2024.
+                All rights reserved 2025.
               </span>
             </div>
           </div>

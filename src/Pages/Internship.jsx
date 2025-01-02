@@ -69,42 +69,180 @@ function Internship() {
         </div>
         {/* <!-- Header End --> */}
 
-        {/* <!-- Internships & Short Courses Start --> */}
+        {/* <!-- Internship Introduction Start --> */}
         <div className="container-fluid py-5">
             <div className="container py-5">
                 <div className="row g-5 align-items-center">
-                    <div className="col-lg-6 wow fadeInLeft" data-wow-delay="0.1s">
-                        <div className="pb-5">
-                            <h4 className="text-primary">Our Services</h4>
-                            <h1 className="display-4">Internships & Short Courses</h1>
-                        </div>
-                        <div className="bg-light rounded p-4">
-                            <p className="my-2">
-                                At Fabritech, we offer hands-on **Internships** and **Short Courses** tailored for individuals looking to expand their skills in IT, networking, 
-                                and other technical fields. Our programs are designed to provide practical experience and in-depth knowledge in a professional environment.
-                            </p>
-                            <ul>
-                                <li>Web & Software Development</li>
-                                <li>Networking</li>
-                                <li>CCTV Camera</li>
-                                <li>Satellite Antenna Installation</li>
-                                <li>Biometric System</li>
-                            </ul>
-                            <p className="my-2">
-                                These programs are ideal for students, recent graduates, or professionals looking to enhance their skill set. Participants will work 
-                                on real-world projects and gain mentorship from experienced industry professionals, ensuring they are well-prepared for future careers in the tech industry.
-                            </p>
+                    <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <h1 className="display-5 mb-4">Launch Your Career with Our Professional Internship Program</h1>
+                        <p className="mb-4">Join Fabritech's comprehensive internship program and gain hands-on experience in cutting-edge technology. Our program is designed to provide practical skills and real-world experience in various IT domains.</p>
+                        <div className="row g-4">
+                            <div className="col-12">
+                                <div className="d-flex align-items-center">
+                                    <div className="ms-4">
+                                        <h6><i className="fas fa-check-circle text-primary me-2"></i>Hands-on Experience</h6>
+                                        <span>Work on real projects with industry experts</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-12">
+                                <div className="d-flex align-items-center">
+                                    <div className="ms-4">
+                                        <h6><i className="fas fa-check-circle text-primary me-2"></i>Professional Mentorship</h6>
+                                        <span>Learn from experienced professionals</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-12">
+                                <div className="d-flex align-items-center">
+                                    <div className="ms-4">
+                                        <h6><i className="fas fa-check-circle text-primary me-2"></i>Career Development</h6>
+                                        <span>Build your portfolio and professional network</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="col-lg-6 wow fadeInRight" data-wow-delay="0.3s">
-                        <div className="faq-img RotateMoveRight rounded">
-                            <img src="img/internServ.jpg" className="img-fluid rounded w-100" style={{height: '500px'}} alt="Image" />
+                    <div className="col-lg-6">
+                        <div className="position-relative overflow-hidden rounded">
+                            <img src="img/internship.jpg" className="w-100" alt="InternshipProgram"/>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        {/* <!-- Internships & Short Courses End --> */}
+
+        {/* <!-- Available Programs Section --> */}
+        <div className="container-fluid bg-light py-5">
+            <div className="container py-5">
+                <div className="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <h4 className="text-primary">Our Programs</h4>
+                    <h1 className="display-5 mb-4">Available Internship Tracks</h1>
+                </div>
+                <div className="row g-4 justify-content-center">
+                    <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div className="card h-100 shadow-sm">
+                            <img className="card-img-top" 
+                                 src="img/webInternship.jpeg" 
+                                 alt="Web Development"
+                                 style={{height: '250px', objectFit: 'cover', padding: '15px'}}/>
+                            <div className="card-body text-center">
+                                <h3 className="card-title h5 text-primary">Web Development</h3>
+                                <p className="card-text">Learn modern web development technologies and practices.</p>
+                                <ul className="list-unstyled text-start">
+                                    <li><i className="fas fa-check text-primary me-2"></i>Frontend Development</li>
+                                    <li><i className="fas fa-check text-primary me-2"></i>Backend Development</li>
+                                    <li><i className="fas fa-check text-primary me-2"></i>Database Management</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div className="card h-100 shadow-sm">
+                            <img className="card-img-top" 
+                                 src="img/networkingInternship.jpeg" 
+                                 alt="Networkng"
+                                 style={{height: '250px', objectFit: 'cover', padding: '15px'}}/>
+                            <div className="card-body text-center">
+                                <h3 className="card-title h5 text-primary">Networking</h3>
+                                <p className="card-text">Master network infrastructure and security.</p>
+                                <ul className="list-unstyled text-start">
+                                    <li><i className="fas fa-check text-primary me-2"></i>Network Configuration</li>
+                                    <li><i className="fas fa-check text-primary me-2"></i>Security Implementation</li>
+                                    <li><i className="fas fa-check text-primary me-2"></i>System Administration</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div className="card h-100 shadow-sm">
+                            <img className="card-img-top" 
+                                 src="img/SecurityInternship.png" 
+                                 alt="Security Systems"
+                                 style={{height: '250px', objectFit: 'cover', padding: '15px'}}/>
+                            <div className="card-body text-center">
+                                <h3 className="card-title h5 text-primary">Security Systems</h3>
+                                <p className="card-text">Learn installation and maintenance of security systems.</p>
+                                <ul className="list-unstyled text-start">
+                                    <li><i className="fas fa-check text-primary me-2"></i>CCTV Installation</li>
+                                    <li><i className="fas fa-check text-primary me-2"></i>Access Control Systems</li>
+                                    <li><i className="fas fa-check text-primary me-2"></i>System Integration</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {/* <!-- Program Benefits --> */}
+        <div className="container-fluid py-5">
+            <div className="container py-5">
+                <div className="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <h4 className="text-primary">Benefits</h4>
+                    <h1 className="display-5 mb-4">What You'll Gain</h1>
+                </div>
+                <div className="row g-4">
+                    <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div className="service-item bg-white text-center rounded p-4">
+                            <div className="d-inline-flex align-items-center justify-content-center bg-primary rounded-circle mb-4" style={{width: '60px', height: '60px'}}>
+                                <i className="fa fa-graduation-cap text-white fs-5"></i>
+                            </div>
+                            <h4 className="mb-3">Practical Learning</h4>
+                            <p className="mb-4">Hands-on experience with real projects</p>
+                        </div>
+                    </div>
+                    <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div className="service-item bg-white text-center rounded p-4">
+                            <div className="d-inline-flex align-items-center justify-content-center bg-primary rounded-circle mb-4" style={{width: '60px', height: '60px'}}>
+                                <i className="fa fa-users text-white fs-5"></i>
+                            </div>
+                            <h4 className="mb-3">Mentorship</h4>
+                            <p className="mb-4">Guidance from industry experts</p>
+                        </div>
+                    </div>
+                    <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div className="service-item bg-white text-center rounded p-4">
+                            <div className="d-inline-flex align-items-center justify-content-center bg-primary rounded-circle mb-4" style={{width: '60px', height: '60px'}}>
+                                <i className="fa fa-certificate text-white fs-5"></i>
+                            </div>
+                            <h4 className="mb-3">Certification</h4>
+                            <p className="mb-4">Professional certification upon completion</p>
+                        </div>
+                    </div>
+                    <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div className="service-item bg-white text-center rounded p-4">
+                            <div className="d-inline-flex align-items-center justify-content-center bg-primary rounded-circle mb-4" style={{width: '60px', height: '60px'}}>
+                                <i className="fa fa-briefcase text-white fs-5"></i>
+                            </div>
+                            <h4 className="mb-3">Job Opportunities</h4>
+                            <p className="mb-4">Potential for full-time employment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {/* <!-- Application Section --> */}
+        <div className="container-fluid bg-light py-5">
+            <div className="container py-5">
+                <div className="row g-5 align-items-center">
+                    <div className="col-lg-5 wow fadeInUp" data-wow-delay="0.1s">
+                        <h4 className="text-primary">Apply Now</h4>
+                        <h1 className="display-5 mb-4">Start Your Journey With Us</h1>
+                        <p className="mb-4">Ready to begin your professional journey? Apply now for our internship program and take the first step towards a successful career in technology.</p>
+                        <a href="/contact" className="btn btn-primary py-3 px-4">Contact Us</a>
+                    </div>
+                    <div className="col-lg-7">
+                        <div className="bg-white rounded p-4 p-sm-5 wow fadeInUp" data-wow-delay="0.5s">
+                            <img src="img/internship.jpg" alt="Apply Now" className="img-fluid rounded"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
          {/* <!-- Footer Start --> */}
          <div className="container-fluid footer py-1 wow fadeIn" data-wow-delay="0.2s">
@@ -143,7 +281,7 @@ function Internship() {
                         <div className="footer-item d-flex flex-column">
                             <h4 className="text-white mb-4">Contact Info</h4>
                             <a href="#"><i className="fa fa-map-marker-alt me-2"></i>YYUSSA Plaza, Kisimenti, Remera</a>
-                            <a href="mailto:fabrice.sugira@fabritech.rw"><i className="fas fa-envelope me-2"></i> info@fabritech.com</a>
+                            <a href="mailto:fabrice.sugira@fabritech.rw"><i className="fas fa-envelope me-2"></i> info@fabritech.rw</a>
                             <a href="tel:+250788601280"><i className="fas fa-phone me-2"></i> +250788601280</a>
                             {/* Social media icons */}
                             <div className="d-flex align-items-center">
@@ -167,7 +305,7 @@ function Internship() {
                 <div className="row g-4 align-items-center">
                     <div className="col-md-6 text-center text-md-start mb-md-0">
                         <span className="text-body">
-                            Fabritech, <i className="fas fa-copyright text-light me-2"></i>All rights reserved 2024.
+                            Fabritech, <i className="fas fa-copyright text-light me-2"></i>All rights reserved 2025.
                         </span>
                     </div>
                 </div>

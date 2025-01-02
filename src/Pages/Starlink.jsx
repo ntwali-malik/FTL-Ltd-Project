@@ -240,7 +240,7 @@ function Starlink() {
                     {/* Starlink V3 Kit */}
                     <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div className="card h-100 shadow-sm">
-                            <img src="img/starlinkV3.jpg" className="card-img-top" alt="Starlink V3" style={{height: '250px', objectFit: 'cover'}} />
+                            <img src="img/starlinkV3.jpg" className="card-img-top" alt="Starlink V3" style={{height: '250px', objectFit: 'contain'}} />
                             <div className="card-body">
                                 <h3 className="card-title h5 text-primary">Starlink V3 Kit</h3>
                                 <p className="card-text">
@@ -259,7 +259,7 @@ function Starlink() {
                     {/* Starlink Mini */}
                     <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div className="card h-100 shadow-sm">
-                            <img src="img/starlinkMini.jpg" className="card-img-top" alt="Starlink Mini" style={{height: '250px', objectFit: 'cover'}} />
+                            <img src="img/starlinkMini.jpg" className="card-img-top" alt="Starlink Mini" style={{height: '250px', objectFit: 'contain'}} />
                             <div className="card-body">
                                 <h3 className="card-title h5 text-primary">Starlink Mini Kit</h3>
                                 <p className="card-text">
@@ -299,7 +299,7 @@ function Starlink() {
                     {/* Ethernet Adapter */}
                     <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div className="card h-100 shadow-sm">
-                            <img src="img/starlinkEthernetAdapter.jpg" className="card-img-top" alt="Ethernet Adapter" style={{height: '200px', objectFit: 'cover'}} />
+                            <img src="img/starlinkEthernetAdapter.jpg" className="card-img-top" alt="Ethernet Adapter" style={{height: '200px', objectFit: 'contain'}} />
                             <div className="card-body">
                                 <h3 className="card-title h5 text-primary">Ethernet Adapter</h3>
                                 <p className="card-text">
@@ -316,7 +316,7 @@ function Starlink() {
                     {/* 25m Cable */}
                     <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div className="card h-100 shadow-sm">
-                            <img src="img/starlinkCable25m.jpg" className="card-img-top" alt="25m Cable" style={{height: '200px', objectFit: 'cover'}} />
+                            <img src="img/starlinkCable25m.jpg" className="card-img-top" alt="25m Cable" style={{height: '200px', objectFit: 'contain'}} />
                             <div className="card-body">
                                 <h3 className="card-title h5 text-primary">25m Cable</h3>
                                 <p className="card-text">
@@ -526,7 +526,7 @@ function Starlink() {
                         <div className="footer-item d-flex flex-column">
                             <h4 className="text-white mb-4">Contact Info</h4>
                             <a href="#"><i className="fa fa-map-marker-alt me-2"></i>YYUSSA Plaza, Kisimenti, Remera</a>
-                            <a href="mailto:fabrice.sugira@fabritech.rw"><i className="fas fa-envelope me-2"></i> info@fabritech.com</a>
+                            <a href="mailto:fabrice.sugira@fabritech.rw"><i className="fas fa-envelope me-2"></i> info@fabritech.rw</a>
                             <a href="tel:+250788601280"><i className="fas fa-phone me-2"></i> +250788601280</a>
                             <div className="d-flex align-items-center">
                                 <a className="btn btn-light btn-md-square me-2" href="https://www.facebook.com/profile.php?id=100089523591506&amp;mibextid=ZbWKwL"><i className="fab fa-facebook-f"></i></a>
@@ -549,7 +549,7 @@ function Starlink() {
                 <div className="row g-4 align-items-center">
                     <div className="col-md-6 text-center text-md-start mb-md-0">
                         <span className="text-body">
-                            Fabritech, <i className="fas fa-copyright text-light me-2"></i>All rights reserved 2024.
+                            Fabritech, <i className="fas fa-copyright text-light me-2"></i>All rights reserved 2025.
                         </span>
                     </div>
                 </div>

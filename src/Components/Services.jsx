@@ -43,7 +43,7 @@ const Services = () => {
             title: "Canal+ & DStv Services",
             description: "Installation & Subscription Services for Canal+ and DStv.",
             icon: "fas fa-tv",
-            image: "img/canal&dstv.jpg",
+            image: "img/Canal+andDstv.jpg",
             link: "/canalDstv",
             color: "#e74a3b" // Red
         },
@@ -113,14 +113,13 @@ const Services = () => {
     return (
         <div style={containerStyle}>
             <div style={{textAlign: 'center', marginBottom: '3rem'}}>
-                <h4 style={{
-                    display: 'inline-block',
-                    backgroundColor: '#4e73df',
-                    color: 'white',
-                    padding: '0.5rem 1.5rem',
-                    borderRadius: '25px',
-                    marginBottom: '1rem'
-                }}>
+                <h4 className="display-4 mb-4 wow fadeInDown" 
+                    data-wow-delay="0.1s"
+                    style={{
+                        display: 'inline-block',
+                        color: 'sky-blue',
+                        marginBottom: '1rem'
+                    }}>
                     Our Services
                 </h4>
                 <h1 style={{
