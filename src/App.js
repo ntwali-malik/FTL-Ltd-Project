@@ -14,6 +14,7 @@ import CanalDstv from './Pages/CanalDstv';
 import DigitalSecurity from './Pages/DigitalSecurity';
 import Internship from './Pages/Internship';
 import Starlink from './Pages/Starlink';
+import NotFound from './Pages/NotFound';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path='/digitalSecurity' element = {<DigitalSecurity />} />
           <Route path='/internship' element = {<Internship />} />
           <Route path='/starlink' element = {<Starlink />} />
+          <Route path="*" element={<NotFound />} />
 
         </Routes>
       </Router>

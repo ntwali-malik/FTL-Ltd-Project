@@ -14,13 +14,13 @@ function About() {
           >
             <div className="col-lg-8 text-center text-lg-start mb-lg-0">
               <div className="d-flex flex-wrap">
-                <a href="" className="text-muted me-4">
+                <a className="text-muted me-4">
                   <i className="fas fa-phone-alt text-primary me-2"></i>
                   +250788601280
                 </a>
-                <a href="" className="text-muted me-0">
+                <a href="mailto:info@fabritech.rw" className="text-muted me-0">
                   <i className="fas fa-envelope text-primary me-2"></i>
-                  info@fabritech.com
+                  info@fabritech.rw
                 </a>
               </div>
             </div>
@@ -45,7 +45,7 @@ function About() {
                   <i className="fab fa-linkedin-in text-white"></i>
                 </a>
                 <a
-                  href="whatsapp://send?text=Hello,I'd like to chat with you about Fabritech.rw!&amp;phone=+250788601280"
+                  href="whatsapp://send?text=Hello,I'd like to chat with you about Fabritech&amp;phone=+250788601280"
                   className="btn btn-primary btn-square rounded-circle nav-fill me-3"
                 >
                   <i className="fab fa-whatsapp text-white"></i>
@@ -1160,7 +1160,7 @@ function About() {
             <div className="col-md-6 col-lg-6 col-xl-3">
               <div className="footer-item d-flex flex-column">
                 <h4 className="text-white mb-4">Contact Info</h4>
-                <a href="#">
+                <a href="https://maps.app.goo.gl/GMRDwb39xqjckVDD9">
                   <i className="fa fa-map-marker-alt me-2"></i>YYUSSA Plaza,
                   Kisimenti, Remera
                 </a>
@@ -1192,7 +1192,7 @@ https://www.facebook.com/profile.php?id=100089523591506&amp;mibextid=ZbWKwL"
                     <i className="fab fa-linkedin-in"></i>
                   </a>
                   <a
-                    href="whatsapp://send?text=Hello,I'd like to chat with you about Fabritech.rw!&amp;phone=+250788601280"
+                    href="whatsapp://send?text=Hello,I'd like to chat with you about Fabritech&amp;phone=+250788601280"
                     className="btn btn-light btn-md-square me-2"
                   >
                     <i className="fab fa-whatsapp text-white"></i>
