@@ -233,7 +233,10 @@ function Internship() {
                         <h4 className="text-primary">Apply Now</h4>
                         <h1 className="display-5 mb-4">Start Your Journey With Us</h1>
                         <p className="mb-4">Ready to begin your professional journey? Apply now for our internship program and take the first step towards a successful career in technology.</p>
-                        <a href="/contact" className="btn btn-primary py-3 px-4">Contact Us</a>
+                        <div className="d-flex gap-3">
+                            <a href="/contact" className="btn btn-primary py-3 px-4">Contact Us</a>
+                            <a href="/internship-registration" className="btn btn-outline-primary py-3 px-4">Register for Internship</a>
+                        </div>
                     </div>
                     <div className="col-lg-7">
                         <div className="bg-white rounded p-4 p-sm-5 wow fadeInUp" data-wow-delay="0.5s">
