@@ -23,6 +23,15 @@ function CanalDstv() {
         email: '',
         location: '',
     });
+    const [technicalSupportForm, setTechnicalSupportForm] = useState({
+        serviceProvider: '',
+        issueType: '',
+        smartCardNumber: '',
+        issueDescription: '',
+        name: '',
+        phoneNumber: '',
+        email: ''
+    });
 
     // Enhanced styles with animations and responsive design
     const styles = {
@@ -343,6 +352,39 @@ function CanalDstv() {
     const handleDecoderOrder = (e) => {
         e.preventDefault();
         setShowDecoderPaymentModal(true);
+    };
+
+    const handleTechnicalSupportSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        
+        try {
+            await technicalSupportService.submitTechnicalSupport(technicalSupportForm);
+            toast.success('Technical support request submitted successfully! Check your email for confirmation.');
+            
+            // Reset form
+            setTechnicalSupportForm({
+                serviceProvider: '',
+                issueType: '',
+                smartCardNumber: '',
+                issueDescription: '',
+                name: '',
+                phoneNumber: '',
+                email: ''
+            });
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleTechnicalSupportInputChange = (e) => {
+        const { name, value } = e.target;
+        setTechnicalSupportForm(prev => ({
+            ...prev,
+            [name]: value
+        }));
     };
 
     const renderDecoderPaymentModal = () => (
@@ -715,17 +757,29 @@ function CanalDstv() {
                                     <h4 className="card-title text-primary">Technical Support</h4>
                                     <p className="text-muted">Having issues with your decoder? Let us help you</p>
                                 </div>
-                                <form>
+                                <form onSubmit={handleTechnicalSupportSubmit}>
                                     <div className="row g-3">
                                         <div className="col-md-6">
-                                            <select className="form-select py-3" required>
+                                            <select 
+                                                className="form-select py-3" 
+                                                name="serviceProvider"
+                                                value={technicalSupportForm.serviceProvider}
+                                                onChange={handleTechnicalSupportInputChange}
+                                                required
+                                            >
                                                 <option value="">Service Provider</option>
                                                 <option value="canal">Canal+</option>
                                                 <option value="dstv">DStv</option>
                                             </select>
                                         </div>
                                         <div className="col-md-6">
-                                            <select className="form-select py-3" required>
+                                            <select 
+                                                className="form-select py-3" 
+                                                name="issueType"
+                                                value={technicalSupportForm.issueType}
+                                                onChange={handleTechnicalSupportInputChange}
+                                                required
+                                            >
                                                 <option value="">Issue Type</option>
                                                 <option value="signal">Signal Problems</option>
                                                 <option value="activation">Activation Issues</option>
@@ -734,23 +788,73 @@ function CanalDstv() {
                                             </select>
                                         </div>
                                         <div className="col-12">
-                                            <input type="text" className="form-control py-3" placeholder="Smart Card Number (if applicable)" />
+                                            <input 
+                                                type="text" 
+                                                className="form-control py-3" 
+                                                placeholder="Smart Card Number (if applicable)"
+                                                name="smartCardNumber"
+                                                value={technicalSupportForm.smartCardNumber}
+                                                onChange={handleTechnicalSupportInputChange}
+                                            />
                                         </div>
                                         <div className="col-12">
-                                            <textarea className="form-control py-3" rows="3" placeholder="Describe your issue" required></textarea>
+                                            <textarea 
+                                                className="form-control py-3" 
+                                                rows="3" 
+                                                placeholder="Describe your issue"
+                                                name="issueDescription"
+                                                value={technicalSupportForm.issueDescription}
+                                                onChange={handleTechnicalSupportInputChange}
+                                                required
+                                            ></textarea>
                                         </div>
                                         <div className="col-md-6">
-                                            <input type="text" className="form-control py-3" placeholder="Your Name" required />
+                                            <input 
+                                                type="text" 
+                                                className="form-control py-3" 
+                                                placeholder="Your Name"
+                                                name="name"
+                                                value={technicalSupportForm.name}
+                                                onChange={handleTechnicalSupportInputChange}
+                                                required 
+                                            />
                                         </div>
                                         <div className="col-md-6">
-                                            <input type="tel" className="form-control py-3" placeholder="Phone Number" required />
+                                            <input 
+                                                type="tel" 
+                                                className="form-control py-3" 
+                                                placeholder="Phone Number"
+                                                name="phoneNumber"
+                                                value={technicalSupportForm.phoneNumber}
+                                                onChange={handleTechnicalSupportInputChange}
+                                                required 
+                                            />
                                         </div>
                                         <div className="col-12">
-                                            <input type="email" className="form-control py-3" placeholder="Email Address" />
+                                            <input 
+                                                type="email" 
+                                                className="form-control py-3" 
+                                                placeholder="Email Address"
+                                                name="email"
+                                                value={technicalSupportForm.email}
+                                                onChange={handleTechnicalSupportInputChange}
+                                                required 
+                                            />
                                         </div>
                                         <div className="col-12">
-                                            <button className="btn btn-primary w-100 py-3" type="submit">
-                                                Submit Support Request
+                                            <button 
+                                                className="btn btn-primary w-100 py-3" 
+                                                type="submit"
+                                                disabled={loading}
+                                            >
+                                                {loading ? (
+                                                    <>
+                                                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                                        Submitting...
+                                                    </>
+                                                ) : (
+                                                    'Submit Support Request'
+                                                )}
                                             </button>
                                         </div>
                                     </div>

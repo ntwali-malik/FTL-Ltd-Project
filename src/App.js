@@ -42,7 +42,6 @@ function App() {
           <Route path="/internship-registration" element={<InternshipRegistration />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-
         </Routes>
       </Router>
       <ToastContainer position="top-right" />
