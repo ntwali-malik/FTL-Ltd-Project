@@ -1,5 +1,183 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TechnicalSupportService from '../services/TechnicalSupportService';
+
+const starlinkKits = [
+    {
+        id: 1,
+        title: 'Starlink V2',
+        description: 'Perfect for homes and small offices with standard internet needs.',
+        image: 'img/starlinkV2.jpg',
+        features: [
+            'High-Performance Satellite Dish',
+            'Wi-Fi Router',
+            'Power Supply',
+            'Mounting Tripod',
+            'All Required Cables'
+        ],
+        whatsappLink: 'https://wa.me/250788601280?text=I%20am%20interested%20in%20the%20Starlink%20Standard%20Kit'
+    },
+    {
+        id: 2,
+        title: 'Starlink V3',
+        description: 'Designed for businesses requiring higher bandwidth and reliability.',
+        image: 'img/starlinkV3.jpg',
+        features: [
+            'High-Performance Business Dish',
+            'Enterprise-Grade Router',
+            'Advanced Mounting System',
+            'Premium Support',
+            'Extended Warranty'
+        ],
+        whatsappLink: 'https://wa.me/250788601280?text=I%20am%20interested%20in%20the%20Starlink%20Business%20Kit'
+    },
+    {
+        id: 3,
+        title: 'Starlink Mini',
+        description: 'Mobile solution for travelers and remote workers.',
+        image: 'img/starlinkMini.jpg',
+        features: [
+            'Portable Satellite Dish',
+            'Travel Router',
+            'Mobile Mounting System',
+            'Carrying Case',
+            'Flexible Service Pause'
+        ],
+        whatsappLink: 'https://wa.me/250788601280?text=I%20am%20interested%20in%20the%20Starlink%20RV%20Kit'
+    }
+];
+
+const starlinkAccessories = [
+    {
+        id: 1,
+        title: 'Mounting Pole',
+        description: 'Sturdy pole mount for elevated installation',
+        image: 'img/starlink-pole.jpg',
+        features: [
+            'Weather-resistant',
+            'Easy Installation',
+            'Adjustable Height'
+        ],
+        whatsappLink: 'https://wa.me/250788601280?text=I%20am%20interested%20in%20the%20Starlink%20Mounting%20Pole'
+    },
+    {
+        id: 2,
+        title: 'Ethernet Adapter',
+        description: 'Connect devices via ethernet cable',
+        image: 'img/starlinkEthernetAdapter.jpg',
+        features: [
+            'Gigabit Speed',
+            'Plug-and-Play',
+            'Weather-Sealed'
+        ],
+        whatsappLink: 'https://wa.me/250788601280?text=I%20am%20interested%20in%20the%20Starlink%20Ethernet%20Adapter'
+    },
+    {
+        id: 3,
+        title: 'Mesh WiFi Router',
+        description: 'Extend your Starlink WiFi coverage',
+        image: 'img/starlinkRouter.png',
+        features: [
+            'Wide Coverage',
+            'Easy Setup',
+            'Dual-Band'
+        ],
+        whatsappLink: 'https://wa.me/250788601280?text=I%20am%20interested%20in%20the%20Starlink%20Mesh%20WiFi%20Router'
+    },
+    {
+        id: 4,
+        title: 'Cable Routing Kit',
+        description: 'Professional cable management solution',
+        image: 'img/starlink-cable.jpg',
+        features: [
+            'Weather Protection',
+            'Clean Installation',
+            'Complete Set'
+        ],
+        whatsappLink: 'https://wa.me/250788601280?text=I%20am%20interested%20in%20the%20Starlink%20Cable%20Routing%20Kit'
+    }
+];
+
+const subscriptionPackages = [
+    {
+        id: 1,
+        name: 'Standard Business',
+        price: 257000,
+        features: [
+            'Data Limit: Unlimited Standard Data',
+            'Download Speed: 220 Mbps',
+            'Recommended users: 60',
+            'Latency: 25-60ms',
+            'Customer Support: 24/7'
+        ]
+    },
+    {
+        id: 2,
+        name: 'Business Plus',
+        price: 471600,
+        features: [
+            'Data Limit: Unlimited Standard Data',
+            '1 TB Priority Data',
+            'Download Speed: 220 Mbps',
+            'Recommended users: 60',
+            'Latency: 25-60ms',
+            'Customer Support: 24/7'
+        ]
+    },
+    {
+        id: 3,
+        name: 'Business Pro',
+        price: 643900,
+        features: [
+            'Data Limit: Unlimited Standard Data',
+            '2 TB Priority Data',
+            'Download Speed: 220 Mbps',
+            'Recommended users: 100',
+            'Latency: 25-60ms',
+            'Customer Support: 24/7'
+        ]
+    },
+    {
+        id: 4,
+        name: 'Business Elite',
+        price: 1429300,
+        features: [
+            'Data Limit: Unlimited Standard Data',
+            '6 TB Priority Data',
+            'Download Speed: 220 Mbps',
+            'Recommended users: 150',
+            'Latency: 25-60ms',
+            'Customer Support: 24/7'
+        ]
+    }
+];
+
+const personalSubscriptionPackages = [
+    {
+        id: 1,
+        name: 'Standard',
+        price: 157000,
+        features: [
+            'Data Limit: Unlimited Standard Data',
+            'Download Speed: 100-200 Mbps',
+            'Recommended users: 4-6',
+            'Latency: 25-50ms',
+            'Customer Support: 24/7'
+        ]
+    },
+    {
+        id: 2,
+        name: 'Premium',
+        price: 257000,
+        features: [
+            'Data Limit: Unlimited Standard Data',
+            'Priority Data: 500GB',
+            'Download Speed: 150-250 Mbps',
+            'Recommended users: 6-8',
+            'Latency: 20-40ms',
+            'Customer Support: 24/7 Priority'
+        ]
+    }
+];
 
 function Starlink() {
     const [formData, setFormData] = useState({
@@ -15,6 +193,7 @@ function Starlink() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
+    const [activePlan, setActivePlan] = useState('personal');
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -48,6 +227,443 @@ function Starlink() {
             setLoading(false);
         }
     };
+
+    // Starlink Kits Section
+    const renderStarlinkKit = (kit) => (
+        <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div className="kit-card h-100 position-relative"
+                 style={{
+                     background: 'white',
+                     borderRadius: '20px',
+                     overflow: 'hidden',
+                     border: '1px solid rgba(0,0,0,0.08)',
+                     transition: 'all 0.4s ease',
+                     boxShadow: '0 5px 15px rgba(0,0,0,0.05)'
+                 }}>
+                
+                {/* Image Container */}
+                <div className="position-relative" style={{ height: '250px' }}>
+                    <img 
+                        src={kit.image} 
+                        alt={kit.title}
+                        className="w-100 h-100"
+                        style={{
+                            objectFit: 'contain',
+                            borderTopLeftRadius: '20px',
+                            borderTopRightRadius: '20px'
+                        }}
+                    />
+                    <div className="position-absolute bottom-0 start-0 w-100 p-3"
+                         style={{
+                             background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
+                             color: 'white'
+                         }}>
+                        <h3 className="h5 mb-0">{kit.title}</h3>
+                    </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-4">
+                    <p className="text-muted mb-4">{kit.description}</p>
+                    
+                    <ul className="list-unstyled mb-4">
+                        {kit.features.map((feature, index) => (
+                            <li key={index} className="d-flex align-items-center mb-2">
+                                <div className="feature-icon me-3"
+                                     style={{
+                                         minWidth: '24px',
+                                         height: '24px',
+                                         borderRadius: '50%',
+                                         background: 'rgba(13, 110, 253, 0.1)',
+                                         display: 'flex',
+                                         alignItems: 'center',
+                                         justifyContent: 'center'
+                                     }}>
+                                    <i className="fas fa-check text-primary" style={{fontSize: '12px'}}></i>
+                                </div>
+                                <span style={{fontSize: '0.9rem'}}>{feature}</span>
+                            </li>
+                        ))}
+                    </ul>
+
+                    <a href={kit.whatsappLink}
+                       className="btn w-100 position-relative overflow-hidden"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       style={{
+                           background: 'linear-gradient(45deg, #25D366, #128C7E)',
+                           color: 'white',
+                           border: 'none',
+                           padding: '12px',
+                           borderRadius: '10px',
+                           transition: 'all 0.3s ease'
+                       }}
+                       onMouseEnter={(e) => {
+                           e.currentTarget.style.transform = 'translateY(-3px)';
+                           e.currentTarget.style.boxShadow = '0 5px 15px rgba(37, 211, 102, 0.3)';
+                       }}
+                       onMouseLeave={(e) => {
+                           e.currentTarget.style.transform = 'translateY(0)';
+                           e.currentTarget.style.boxShadow = 'none';
+                       }}>
+                        <i className="fab fa-whatsapp me-2"></i>
+                        Buy Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    );
+
+    // Accessories Card Design
+    const renderAccessory = (accessory) => (
+        <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div className="accessory-card h-100"
+                 style={{
+                     background: 'white',
+                     borderRadius: '15px',
+                     overflow: 'hidden',
+                     border: '1px solid rgba(0,0,0,0.08)',
+                     transition: 'all 0.3s ease',
+                     boxShadow: '0 3px 10px rgba(0,0,0,0.05)'
+                 }}>
+                
+                {/* Image */}
+                <div style={{ height: '200px', background: '#f8f9fa', padding: '20px' }}>
+                    <img 
+                        src={accessory.image} 
+                        alt={accessory.title}
+                        className="w-100 h-100"
+                        style={{
+                            objectFit: 'cover',
+                            transition: 'transform 0.3s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = 'scale(1.1)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = 'scale(1)';
+                        }}
+                    />
+                </div>
+
+                {/* Content */}
+                <div className="p-3">
+                    <h3 className="h5 text-primary mb-3">{accessory.title}</h3>
+                    <p className="text-muted small mb-3">{accessory.description}</p>
+                    
+                    <ul className="list-unstyled mb-4">
+                        {accessory.features.map((feature, index) => (
+                            <li key={index} className="small mb-2">
+                                <i className="fas fa-check text-primary me-2"></i>
+                                {feature}
+                            </li>
+                        ))}
+                    </ul>
+
+                    <a href={accessory.whatsappLink}
+                       className="btn btn-sm w-100"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       style={{
+                           background: 'linear-gradient(45deg, #25D366, #128C7E)',
+                           color: 'white',
+                           border: 'none',
+                           borderRadius: '8px',
+                           transition: 'all 0.3s ease'
+                       }}
+                       onMouseEnter={(e) => {
+                           e.currentTarget.style.transform = 'translateY(-2px)';
+                           e.currentTarget.style.boxShadow = '0 4px 12px rgba(37, 211, 102, 0.2)';
+                       }}
+                       onMouseLeave={(e) => {
+                           e.currentTarget.style.transform = 'translateY(0)';
+                           e.currentTarget.style.boxShadow = 'none';
+                       }}>
+                        <i className="fab fa-whatsapp me-2"></i>
+                        Buy Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    );
+
+    const renderSubscriptionPackage = (pkg) => (
+        <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay={`0.${pkg.id}s`}>
+            <div className="subscription-card h-100 position-relative"
+                 style={{
+                     background: 'white',
+                     borderRadius: '20px',
+                     overflow: 'hidden',
+                     border: '1px solid rgba(0,0,0,0.08)',
+                     transition: 'all 0.4s ease',
+                     boxShadow: '0 5px 15px rgba(0,0,0,0.05)'
+                 }}>
+                
+                {/* Package Header */}
+                <div className="text-center p-4"
+                     style={{
+                         background: `linear-gradient(135deg, 
+                             ${pkg.id === 4 ? '#FFD700, #FFA500' : 
+                               pkg.id === 3 ? '#9733EE, #DA22FF' :
+                               pkg.id === 2 ? '#2193b0, #6dd5ed' :
+                               '#0d6efd, #0043a8'})`
+                     }}>
+                    <h3 className="text-white mb-3">{pkg.name}</h3>
+                    <div className="price-tag">
+                        <h2 className="text-white mb-0 display-6">
+                            {pkg.price.toLocaleString()} RWF
+                        </h2>
+                        <p className="text-white-50 mb-0">per month</p>
+                    </div>
+                </div>
+
+                {/* Features List */}
+                <div className="p-4">
+                    <ul className="list-unstyled mb-4">
+                        {pkg.features.map((feature, index) => (
+                            <li key={index} 
+                                className="mb-3 d-flex align-items-center"
+                                style={{
+                                    padding: '10px',
+                                    background: 'rgba(13, 110, 253, 0.05)',
+                                    borderRadius: '10px',
+                                    transition: 'all 0.3s ease'
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.transform = 'translateX(10px)';
+                                    e.currentTarget.style.background = 'rgba(13, 110, 253, 0.1)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.transform = 'translateX(0)';
+                                    e.currentTarget.style.background = 'rgba(13, 110, 253, 0.05)';
+                                }}>
+                                <i className="fas fa-check-circle text-primary me-2"></i>
+                                <span style={{fontSize: '0.9rem'}}>{feature}</span>
+                            </li>
+                        ))}
+                    </ul>
+
+                    {/* Subscribe Button */}
+                    <a href={`https://wa.me/250788601280?text=I'm interested in the ${pkg.name} Starlink subscription package`}
+                       className="btn w-100"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       style={{
+                           background: pkg.id === 4 ? 'linear-gradient(45deg, #FFD700, #FFA500)' :
+                                     pkg.id === 3 ? 'linear-gradient(45deg, #9733EE, #DA22FF)' :
+                                     pkg.id === 2 ? 'linear-gradient(45deg, #2193b0, #6dd5ed)' :
+                                     'linear-gradient(45deg, #0d6efd, #0043a8)',
+                           color: 'white',
+                           border: 'none',
+                           padding: '12px',
+                           borderRadius: '10px',
+                           transition: 'all 0.3s ease'
+                       }}
+                       onMouseEnter={(e) => {
+                           e.currentTarget.style.transform = 'translateY(-3px)';
+                           e.currentTarget.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                       }}
+                       onMouseLeave={(e) => {
+                           e.currentTarget.style.transform = 'translateY(0)';
+                           e.currentTarget.style.boxShadow = 'none';
+                       }}>
+                        <i className="fab fa-whatsapp me-2"></i>
+                        Subscribe Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    );
+
+    const cssAnimations = `
+        .kit-card:hover, .accessory-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            transition: all 0.3s ease;
+        }
+
+        .feature-icon:hover {
+            transform: scale(1.1);
+            background: rgba(13, 110, 253, 0.2);
+        }
+    `;
+
+    const subscriptionStyles = `
+        .subscription-card {
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .subscription-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+        }
+    `;
+
+    const subscriptionToggleStyles = `
+        .subscription-toggle {
+            background: rgba(13, 110, 253, 0.08);
+            padding: 4px;
+            border-radius: 50px;
+            display: inline-flex;
+            position: relative;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            min-width: 300px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .subscription-toggle button {
+            position: relative;
+            padding: 12px 30px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            z-index: 1;
+            transition: all 0.4s ease;
+            font-size: 15px;
+            width: 50%;
+        }
+
+        .subscription-toggle button:not(.active) {
+            background: transparent;
+            color: #555;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+        }
+
+        .subscription-toggle button.active {
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .subscription-toggle button i {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .subscription-toggle button:hover i {
+            transform: scale(1.2);
+        }
+
+        .subscription-toggle .slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            bottom: 4px;
+            width: calc(50% - 4px);
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 2px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .subscription-toggle[data-active='business'] .slider {
+            left: calc(50% + 0px);
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            box-shadow: 0 2px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .subscription-toggle button:hover:not(.active) {
+            color: #333;
+            transform: translateY(-1px);
+        }
+
+        .subscription-toggle:hover {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+        }
+
+        .subscription-toggle[data-active='business'] {
+            @keyframes pulseGlow {
+                0% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.4); }
+                70% { box-shadow: 0 0 0 10px rgba(33, 150, 243, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0); }
+            }
+        }
+
+        .subscription-toggle:after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            opacity: 0;
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        .subscription-toggle[data-active='business']:after {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+        }
+
+        .subscription-toggle:hover:after {
+            opacity: 0.1;
+            animation: pulseGlow 2s infinite;
+        }
+
+        /* Custom animations for icons */
+        .subscription-toggle button.active i {
+            animation: iconPop 0.3s ease-out;
+        }
+
+        @keyframes iconPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 576px) {
+            .subscription-toggle {
+                min-width: 280px;
+            }
+            
+            .subscription-toggle button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+    `;
+
+    useEffect(() => {
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = cssAnimations;
+        document.head.appendChild(styleSheet);
+        return () => {
+            document.head.removeChild(styleSheet);
+        };
+    }, []);
+
+    useEffect(() => {
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = subscriptionStyles;
+        document.head.appendChild(styleSheet);
+        return () => {
+            document.head.removeChild(styleSheet);
+        };
+    }, []);
+
+    useEffect(() => {
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = subscriptionToggleStyles;
+        document.head.appendChild(styleSheet);
+        return () => {
+            document.head.removeChild(styleSheet);
+        };
+    }, []);
 
     return (
         <div>
@@ -266,162 +882,13 @@ function Starlink() {
                     {/* Starlink Kits Section */}
                     <h2 className="text-center mb-4">Starlink Kits</h2>
                     <div className="row g-4 mb-5">
-                        {/* Starlink V2 Kit */}
-                        <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <div className="card h-100 shadow-sm">
-                                <img src="img/starlinkV2.jpg" className="card-img-top" alt="Starlink V2" style={{height: '250px', objectFit: 'cover'}} />
-                                <div className="card-body">
-                                    <h3 className="card-title h5 text-primary">Starlink V2 Kit</h3>
-                                    <p className="card-text">
-                                        Second-generation Starlink kit with improved performance and reliability. 
-                                        Perfect for residential and small business use.
-                                    </p>
-                                    <ul className="list-unstyled">
-                                        <li><i className="fas fa-check text-primary me-2"></i>Enhanced antenna design</li>
-                                        <li><i className="fas fa-check text-primary me-2"></i>Improved thermal management</li>
-                                        <li><i className="fas fa-check text-primary me-2"></i>Standard mounting options</li>
-                                    </ul>
-                                    <a href="https://wa.me/250788601280?text=I'm%20interested%20in%20purchasing%20the%20Starlink%20V2%20Kit" 
-                                       className="btn btn-primary w-100">
-                                        Buy Now <i className="fab fa-whatsapp ms-2"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Starlink V3 Kit */}
-                        <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                            <div className="card h-100 shadow-sm">
-                                <img src="img/starlinkV3.jpg" className="card-img-top" alt="Starlink V3" style={{height: '250px', objectFit: 'contain'}} />
-                                <div className="card-body">
-                                    <h3 className="card-title h5 text-primary">Starlink V3 Kit</h3>
-                                    <p className="card-text">
-                                        Latest generation Starlink kit offering maximum performance and advanced features.
-                                        Ideal for high-demand users.
-                                    </p>
-                                    <ul className="list-unstyled">
-                                        <li><i className="fas fa-check text-primary me-2"></i>Latest technology</li>
-                                        <li><i className="fas fa-check text-primary me-2"></i>Maximum speed potential</li>
-                                        <li><i className="fas fa-check text-primary me-2"></i>Advanced features</li>
-                                    </ul>
-                                    <a href="https://wa.me/250788601280?text=I'm%20interested%20in%20purchasing%20the%20Starlink%20V3%20Kit" 
-                                       className="btn btn-primary w-100">
-                                        Buy Now <i className="fab fa-whatsapp ms-2"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Starlink Mini */}
-                        <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                            <div className="card h-100 shadow-sm">
-                                <img src="img/starlinkMini.jpg" className="card-img-top" alt="Starlink Mini" style={{height: '250px', objectFit: 'contain'}} />
-                                <div className="card-body">
-                                    <h3 className="card-title h5 text-primary">Starlink Mini Kit</h3>
-                                    <p className="card-text">
-                                        Compact and portable Starlink solution, perfect for mobile applications
-                                        and smaller installations.
-                                    </p>
-                                    <ul className="list-unstyled">
-                                        <li><i className="fas fa-check text-primary me-2"></i>Portable design</li>
-                                        <li><i className="fas fa-check text-primary me-2"></i>Easy setup</li>
-                                        <li><i className="fas fa-check text-primary me-2"></i>Travel-friendly</li>
-                                    </ul>
-                                    <a href="https://wa.me/250788601280?text=I'm%20interested%20in%20purchasing%20the%20Starlink%20Mini%20Kit" 
-                                       className="btn btn-primary w-100">
-                                        Buy Now <i className="fab fa-whatsapp ms-2"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        {starlinkKits.map(kit => renderStarlinkKit(kit))}
                     </div>
 
                     {/* Accessories Section */}
                     <h2 className="text-center mb-4">Accessories</h2>
                     <div className="row g-4">
-                        {/* Starlink Router */}
-                        <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <div className="card h-100 shadow-sm">
-                                <img src="img/starlinkRouter.png" className="card-img-top" alt="Starlink Router" style={{height: '200px', objectFit: 'cover'}} />
-                                <div className="card-body">
-                                    <h3 className="card-title h5 text-primary">Starlink Router</h3>
-                                    <p className="card-text">
-                                        High-performance WiFi router optimized for Starlink service.
-                                    </p>
-                                    <ul className="list-unstyled">
-                                        <li><i className="fas fa-check text-primary me-2"></i>Dual-band WiFi</li>
-                                        <li><i className="fas fa-check text-primary me-2"></i>Easy management</li>
-                                    </ul>
-                                    <a href="https://wa.me/250788601280?text=I'm%20interested%20in%20purchasing%20the%20Starlink%20Router" 
-                                       className="btn btn-primary w-100">
-                                        Buy Now <i className="fab fa-whatsapp ms-2"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Ethernet Adapter */}
-                        <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                            <div className="card h-100 shadow-sm">
-                                <img src="img/starlinkEthernetAdapter.jpg" className="card-img-top" alt="Ethernet Adapter" style={{height: '200px', objectFit: 'contain'}} />
-                                <div className="card-body">
-                                    <h3 className="card-title h5 text-primary">Ethernet Adapter</h3>
-                                    <p className="card-text">
-                                        Connect devices directly to your Starlink network.
-                                    </p>
-                                    <ul className="list-unstyled">
-                                        <li><i className="fas fa-check text-primary me-2"></i>Gigabit connection</li>
-                                        <li><i className="fas fa-check text-primary me-2"></i>Simple plug-and-play</li>
-                                    </ul>
-                                    <a href="https://wa.me/250788601280?text=I'm%20interested%20in%20purchasing%20the%20Starlink%20Ethernet%20Adapter" 
-                                       className="btn btn-primary w-100">
-                                        Buy Now <i className="fab fa-whatsapp ms-2"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* 25m Cable */}
-                        <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                            <div className="card h-100 shadow-sm">
-                                <img src="img/starlinkCable25m.jpg" className="card-img-top" alt="25m Cable" style={{height: '200px', objectFit: 'contain'}} />
-                                <div className="card-body">
-                                    <h3 className="card-title h5 text-primary">25m Cable</h3>
-                                    <p className="card-text">
-                                        Standard length cable for most installations.
-                                    </p>
-                                    <ul className="list-unstyled">
-                                        <li><i className="fas fa-check text-primary me-2"></i>Weather-resistant</li>
-                                        <li><i className="fas fa-check text-primary me-2"></i>High-quality construction</li>
-                                    </ul>
-                                    <a href="https://wa.me/250788601280?text=I'm%20interested%20in%20purchasing%20the%20Starlink%2025m%20Cable" 
-                                       className="btn btn-primary w-100">
-                                        Buy Now <i className="fab fa-whatsapp ms-2"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* 45m Cable */}
-                        <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                            <div className="card h-100 shadow-sm">
-                                <img src="img/starlinkCable45m.jpg" className="card-img-top" alt="45m Cable" style={{height: '200px', objectFit: 'cover'}} />
-                                <div className="card-body">
-                                    <h3 className="card-title h5 text-primary">45m Cable</h3>
-                                    <p className="card-text">
-                                        Extended length cable for complex installations.
-                                    </p>
-                                    <ul className="list-unstyled">
-                                        <li><i className="fas fa-check text-primary me-2"></i>Extra reach</li>
-                                        <li><i className="fas fa-check text-primary me-2"></i>Professional grade</li>
-                                    </ul>
-                                    <a href="https://wa.me/250788601280?text=I'm%20interested%20in%20purchasing%20the%20Starlink%2045m%20Cable" 
-                                       className="btn btn-primary w-100">
-                                        Buy Now <i className="fab fa-whatsapp ms-2"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        {starlinkAccessories.map(accessory => renderAccessory(accessory))}
                     </div>
                 </div>
             </div>
@@ -569,142 +1036,42 @@ function Starlink() {
             {/* <!-- FAQ Section End --> */}
 
             {/* <!-- Subscription Renewal Start --> */}
-            <div className="container-fluid py-5 bg-light">
+            <div className="container-fluid py-5">
                 <div className="container py-5">
                     <div className="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
                         <h4 className="text-primary">Subscription</h4>
                         <h1 className="display-5 mb-3">Renew Your Starlink Subscription</h1>
-                        <p className="mb-0">Choose your preferred subscription plan and stay connected</p>
-                    </div>
-
-                    <div className="row g-4 justify-content-center">
-                        {/* Monthly Plan */}
-                        <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <div className="card h-100 shadow-sm">
-                                <div className="card-body text-center p-4">
-                                    <h3 className="card-title text-primary">Monthly Plan</h3>
-                                    <div className="py-3">
-                                        <h2 className="display-6 mb-0">$120</h2>
-                                        <p className="text-muted">per month</p>
-                                    </div>
-                                    <ul className="list-unstyled mb-4">
-                                        <li className="mb-2">
-                                            <i className="fas fa-check text-primary me-2"></i>
-                                            Full Starlink Service
-                                        </li>
-                                        <li className="mb-2">
-                                            <i className="fas fa-check text-primary me-2"></i>
-                                            24/7 Support
-                                        </li>
-                                        <li className="mb-2">
-                                            <i className="fas fa-check text-primary me-2"></i>
-                                            Monthly Flexibility
-                                        </li>
-                                    </ul>
-                                    <a href="https://wa.me/250788601280?text=I'd%20like%20to%20renew%20my%20Starlink%20subscription%20for%20the%20Monthly%20Plan" 
-                                       className="btn btn-primary w-100 py-3">
-                                        Renew Now <i className="fab fa-whatsapp ms-2"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Annual Plan */}
-                        <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                            <div className="card h-100 shadow-sm border-primary">
-                                <div className="card-body text-center p-4">
-                                    <div className="position-absolute top-0 start-50 translate-middle">
-                                        <span className="badge bg-primary px-3 py-2 rounded-pill">
-                                            Most Popular
-                                        </span>
-                                    </div>
-                                    <h3 className="card-title text-primary">Annual Plan</h3>
-                                    <div className="py-3">
-                                        <h2 className="display-6 mb-0">$1,100</h2>
-                                        <p className="text-muted">per year</p>
-                                        <small className="text-success">Save $340 annually</small>
-                                    </div>
-                                    <ul className="list-unstyled mb-4">
-                                        <li className="mb-2">
-                                            <i className="fas fa-check text-primary me-2"></i>
-                                            Full Starlink Service
-                                        </li>
-                                        <li className="mb-2">
-                                            <i className="fas fa-check text-primary me-2"></i>
-                                            24/7 Priority Support
-                                        </li>
-                                        <li className="mb-2">
-                                            <i className="fas fa-check text-primary me-2"></i>
-                                            2 Months Free
-                                        </li>
-                                        <li className="mb-2">
-                                            <i className="fas fa-check text-primary me-2"></i>
-                                            Price Lock Guarantee
-                                        </li>
-                                    </ul>
-                                    <a href="https://wa.me/250788601280?text=I'd%20like%20to%20renew%20my%20Starlink%20subscription%20for%20the%20Annual%20Plan" 
-                                       className="btn btn-primary w-100 py-3">
-                                        Renew Now <i className="fab fa-whatsapp ms-2"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Business Plan */}
-                        <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                            <div className="card h-100 shadow-sm">
-                                <div className="card-body text-center p-4">
-                                    <h3 className="card-title text-primary">Business Plan</h3>
-                                    <div className="py-3">
-                                        <h2 className="display-6 mb-0">$500</h2>
-                                        <p className="text-muted">per month</p>
-                                    </div>
-                                    <ul className="list-unstyled mb-4">
-                                        <li className="mb-2">
-                                            <i className="fas fa-check text-primary me-2"></i>
-                                            Priority Network Access
-                                        </li>
-                                        <li className="mb-2">
-                                            <i className="fas fa-check text-primary me-2"></i>
-                                            Enhanced Support
-                                        </li>
-                                        <li className="mb-2">
-                                            <i className="fas fa-check text-primary me-2"></i>
-                                            Advanced Features
-                                        </li>
-                                        <li className="mb-2">
-                                            <i className="fas fa-check text-primary me-2"></i>
-                                            Multiple Users
-                                        </li>
-                                    </ul>
-                                    <a href="https://wa.me/250788601280?text=I'd%20like%20to%20renew%20my%20Starlink%20subscription%20for%20the%20Business%20Plan" 
-                                       className="btn btn-primary w-100 py-3">
-                                        Renew Now <i className="fab fa-whatsapp ms-2"></i>
-                                    </a>
-                                </div>
-                            </div>
+                        
+                        <div 
+                            className="subscription-toggle" 
+                            data-active={activePlan}
+                            role="group" 
+                            aria-label="Subscription type"
+                        >
+                            <div className="slider"></div>
+                            <button 
+                                type="button" 
+                                className={activePlan === 'personal' ? 'active' : ''}
+                                onClick={() => setActivePlan('personal')}
+                            >
+                                <i className="fas fa-user me-2"></i>
+                                Personal
+                            </button>
+                            <button 
+                                type="button" 
+                                className={activePlan === 'business' ? 'active' : ''}
+                                onClick={() => setActivePlan('business')}
+                            >
+                                <i className="fas fa-building me-2"></i>
+                                Business
+                            </button>
                         </div>
                     </div>
-
-                    {/* Additional Information */}
-                    <div className="row mt-5">
-                        <div className="col-12 text-center">
-                            <div className="bg-white rounded p-4 wow fadeInUp" data-wow-delay="0.7s" style={{boxShadow: '0 0 45px rgba(0,0,0,.08)'}}>
-                                <h4 className="text-primary mb-4">Need Help with Your Subscription?</h4>
-                                <p className="mb-4">
-                                    Our team is here to assist you with any questions about your subscription renewal. 
-                                    Contact us for personalized support or special requirements.
-                                </p>
-                                <div className="d-flex justify-content-center gap-3">
-                                    <a href="tel:+250788601280" className="btn btn-outline-primary">
-                                        <i className="fas fa-phone me-2"></i>Call Us
-                                    </a>
-                                    <a href="mailto:info@fabritech.rw" className="btn btn-outline-primary">
-                                        <i className="fas fa-envelope me-2"></i>Email Us
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="row g-4">
+                        {activePlan === 'personal' 
+                            ? personalSubscriptionPackages.map(pkg => renderSubscriptionPackage(pkg))
+                            : subscriptionPackages.map(pkg => renderSubscriptionPackage(pkg))
+                        }
                     </div>
                 </div>
             </div>

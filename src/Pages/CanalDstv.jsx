@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify';
+import { createDecoderOrder } from '../services/decoderOrderService';
 
 function CanalDstv() {
     const [selectedPackage, setSelectedPackage] = useState(null);
@@ -32,6 +33,7 @@ function CanalDstv() {
         phoneNumber: '',
         email: ''
     });
+    const [selectedPackageType, setSelectedPackageType] = useState('dstv');
 
     // Enhanced styles with animations and responsive design
     const styles = {
@@ -127,8 +129,114 @@ function CanalDstv() {
             borderRadius: '50%',
             borderTopColor: 'white',
             animation: 'spin 1s ease-in-out infinite'
+        },
+        packageCard: {
+            transition: 'transform 0.3s, box-shadow 0.3s',
+            borderRadius: '15px',
+            overflow: 'hidden',
+            border: 'none'
+        },
+        popularBadge: {
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            background: 'linear-gradient(45deg, #ff6b6b, #ff8787)',
+            color: 'white',
+            padding: '8px 15px',
+            borderRadius: '20px',
+            fontSize: '0.9rem',
+            fontWeight: '500',
+            boxShadow: '0 4px 15px rgba(255, 107, 107, 0.35)'
         }
     };
+
+    // Create a separate constant for CSS animations
+    const cssAnimations = `
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .bg-gradient {
+            background-size: 200% 200%;
+            animation: gradient 5s ease infinite;
+        }
+
+        .package-card {
+            border: none;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .feature-list li {
+            font-size: 0.95rem;
+            color: #6c757d;
+        }
+
+        .feature-list li i {
+            font-size: 1.1rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .features-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .features-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .features-container::-webkit-scrollbar-thumb {
+            background: #0d6efd;
+            border-radius: 3px;
+        }
+
+        .features-container::-webkit-scrollbar-thumb:hover {
+            background: #0043a8;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: rotate(-45deg) scale(1);
+            }
+            50% {
+                transform: rotate(-45deg) scale(1.05);
+            }
+            100% {
+                transform: rotate(-45deg) scale(1);
+            }
+        }
+
+        .popular-ribbon {
+            animation: pulse 2s infinite;
+        }
+    `;
 
     // Add keyframe animations
     useEffect(() => {
@@ -185,9 +293,12 @@ function CanalDstv() {
             channels: '150+ channels',
             features: [
                 'Entertainment channels',
-                'News channels',
-                'Kids channels',
-                'Local channels'
+                'News channels (BBC World, France 24, etc.)',
+                'Kids channels (Gulli Africa, Cartoon Network)',
+                'Local channels',
+                'Music channels',
+                'Religious channels',
+                'Educational content'
             ],
             provider: 'Canal+'
         },
@@ -198,9 +309,13 @@ function CanalDstv() {
             channels: '180+ channels',
             features: [
                 'All Access features',
-                'Sports channels',
-                'Movie channels',
-                'Documentary channels'
+                'Sports channels (Sport 1, Sport 2)',
+                'Movie channels (Canal+ Cinema)',
+                'Documentary channels',
+                'Extended entertainment package',
+                'Premium series channels',
+                'Additional kids channels',
+                'Enhanced music selection'
             ],
             provider: 'Canal+'
         },
@@ -211,9 +326,33 @@ function CanalDstv() {
             channels: '200+ channels',
             features: [
                 'All Evasion features',
-                'Premium sports',
-                'Premium movies',
-                'International channels'
+                'Premium sports (Canal+ Sport)',
+                'Premium movies (Canal+ Cinema, Action)',
+                'International channels',
+                'Exclusive content',
+                'HD channels',
+                'Multi-screen access',
+                'Video on demand',
+                'Extended sports coverage'
+            ],
+            provider: 'Canal+'
+        },
+        {
+            id: 'c4',
+            name: 'Tout Canal+',
+            price: 30000,
+            channels: '220+ channels',
+            features: [
+                'All Essentiel+ features',
+                'Complete Canal+ experience',
+                'Full sports package',
+                'All movie channels',
+                'Premium series',
+                'Exclusive international content',
+                'First-run movies and series',
+                'Ultra HD content where available',
+                'Priority customer service',
+                'Multi-device streaming'
             ],
             provider: 'Canal+'
         }
@@ -222,40 +361,84 @@ function CanalDstv() {
     const dstvPackages = [
         {
             id: 'd1',
-            name: 'Access',
-            price: 8000,
-            channels: '140+ channels',
+            name: 'DSTV Isange',
+            price: 5000,
+            channels: '80+ channels',
             features: [
-                'Entertainment channels',
-                'News channels',
-                'Kids channels',
-                'Local content'
+                'DSTV Now',
+                '40 DMX Audio Channels',
+                'Local & International Novelas',
+                'Local & International News',
+                'French Channels'
             ],
             provider: 'DStv'
         },
         {
             id: 'd2',
-            name: 'Family',
-            price: 14000,
-            channels: '170+ channels',
+            name: 'DSTV Iwacu',
+            price: 10000,
+            channels: '100+ channels',
             features: [
-                'All Access features',
-                'Sports channels',
-                'Movie channels',
-                'Music channels'
+                'Local & International Novelas',
+                'Local & International News',
+                'Kid\'s Channels',
+                'Dedicated Home-Grown Channels',
+                'Supersport 7 & 8',
+                'DSTV Now',
+                'French Channels'
             ],
             provider: 'DStv'
         },
         {
             id: 'd3',
-            name: 'Premium',
+            name: 'DSTV Inganji',
             price: 20000,
-            channels: '200+ channels',
+            channels: '120+ channels',
             features: [
-                'All Family features',
-                'Premium sports',
-                'Premium movies',
-                'International channels'
+                'Live Coverage of the best Football Leagues',
+                'Local & International Novelas',
+                'Local & International News',
+                'Kid\'s Channels',
+                'Dedicated Home-Grown Channels',
+                'Hand-Picked channels',
+                'DSTV Now',
+                'French Channels'
+            ],
+            provider: 'DStv'
+        },
+        {
+            id: 'd4',
+            name: 'DSTV Ishema',
+            price: 30000,
+            channels: '130+ channels',
+            features: [
+                'International Series',
+                'Local & International Movies',
+                'Local & International News',
+                'Kid\'s Channels',
+                'DSTV Now',
+                'Dedicated Home-Grown Channels',
+                'Best LifeStyle Channels',
+                'Live European Football',
+                'Best Local Drama & Documentaries'
+            ],
+            provider: 'DStv'
+        },
+        {
+            id: 'd5',
+            name: 'DSTV Premium',
+            price: 100000,
+            channels: '140+ channels',
+            features: [
+                'All Sports & All European Football',
+                'Local & International Novelas',
+                'All Our Kid Channels',
+                'DSTV Now',
+                'Dedicated Home-Grown Content',
+                'Best Local Drama & Documentaries',
+                'The Movies & Series Destination',
+                'Surprise Pop Up & More HD Channels',
+                'Watch It First Express From the US'
             ],
             provider: 'DStv'
         }
@@ -349,9 +532,45 @@ function CanalDstv() {
         setValidationErrors({});
     };
 
-    const handleDecoderOrder = (e) => {
+    const handleDecoderOrder = async (e) => {
         e.preventDefault();
-        setShowDecoderPaymentModal(true);
+        setLoading(true);
+
+        try {
+            // Get values from the form
+            const orderData = {
+                decoderType: decoderOrderDetails.decoderType,
+                installationType: decoderOrderDetails.installationType,
+                name: decoderOrderDetails.name,
+                phoneNumber: decoderOrderDetails.phone,
+                email: decoderOrderDetails.email,
+                location: decoderOrderDetails.location
+            };
+
+            // Call the service to submit the order
+            const result = await createDecoderOrder(orderData);
+
+            if (result.success) {
+                toast.success('Order submitted successfully! Please check your email for confirmation.');
+                
+                // Reset the form
+                setDecoderOrderDetails({
+                    decoderType: '',
+                    installationType: '',
+                    name: '',
+                    phone: '',
+                    email: '',
+                    location: '',
+                });
+            } else {
+                toast.error(result.message || 'Failed to submit order. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error submitting decoder order:', error);
+            toast.error('An error occurred while submitting your order. Please try again.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleTechnicalSupportSubmit = async (e) => {
@@ -727,20 +946,71 @@ function CanalDstv() {
                                             </select>
                                         </div>
                                         <div className="col-12">
-                                            <input type="text" className="form-control py-3" placeholder="Your Name" required />
+                                            <input 
+                                                type="text" 
+                                                className="form-control py-3" 
+                                                placeholder="Your Name" 
+                                                required
+                                                value={decoderOrderDetails.name}
+                                                onChange={(e) => setDecoderOrderDetails(prev => ({
+                                                    ...prev,
+                                                    name: e.target.value
+                                                }))}
+                                            />
                                         </div>
                                         <div className="col-md-6">
-                                            <input type="tel" className="form-control py-3" placeholder="Phone Number" required />
+                                            <input 
+                                                type="tel" 
+                                                className="form-control py-3" 
+                                                placeholder="Phone Number" 
+                                                required
+                                                value={decoderOrderDetails.phone}
+                                                onChange={(e) => setDecoderOrderDetails(prev => ({
+                                                    ...prev,
+                                                    phone: e.target.value
+                                                }))}
+                                            />
                                         </div>
                                         <div className="col-md-6">
-                                            <input type="email" className="form-control py-3" placeholder="Email Address" />
+                                            <input 
+                                                type="email" 
+                                                className="form-control py-3" 
+                                                placeholder="Email Address"
+                                                value={decoderOrderDetails.email}
+                                                onChange={(e) => setDecoderOrderDetails(prev => ({
+                                                    ...prev,
+                                                    email: e.target.value
+                                                }))}
+                                                required
+                                            />
                                         </div>
                                         <div className="col-12">
-                                            <input type="text" className="form-control py-3" placeholder="Your Location" required />
+                                            <input 
+                                                type="text" 
+                                                className="form-control py-3" 
+                                                placeholder="Your Location" 
+                                                required
+                                                value={decoderOrderDetails.location}
+                                                onChange={(e) => setDecoderOrderDetails(prev => ({
+                                                    ...prev,
+                                                    location: e.target.value
+                                                }))}
+                                            />
                                         </div>
                                         <div className="col-12">
-                                            <button className="btn btn-primary w-100 py-3" type="submit">
-                                                Order Decoder
+                                            <button 
+                                                className="btn btn-primary w-100 py-3" 
+                                                type="submit"
+                                                disabled={loading}
+                                            >
+                                                {loading ? (
+                                                    <>
+                                                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                                        Submitting Order...
+                                                    </>
+                                                ) : (
+                                                    'Order Decoder'
+                                                )}
                                             </button>
                                         </div>
                                     </div>
@@ -866,6 +1136,134 @@ function CanalDstv() {
             </div>
         </div>
     );
+
+    const renderPackage = (pkg) => (
+        <div key={pkg.id} className="col-lg-4 col-md-6 mb-4">
+            <div className="package-card h-100 position-relative d-flex flex-column"
+                 style={{
+                     background: 'white',
+                     borderRadius: '20px',
+                     overflow: 'hidden',
+                     border: pkg.name === 'DSTV Premium' ? 
+                         '2px solid rgba(255, 215, 0, 0.5)' : 
+                         '1px solid rgba(0,0,0,0.08)',
+                     transition: 'all 0.4s ease',
+                     boxShadow: pkg.name === 'DSTV Premium' ? 
+                         '0 0 20px rgba(255, 215, 0, 0.2)' : 
+                         'none'
+                 }}>
+                
+                {/* Price Tag */}
+                <div className="price-banner position-absolute end-0 top-0 px-3 py-2"
+                     style={{
+                         background: pkg.name === 'DSTV Premium' ? 
+                             'linear-gradient(135deg, #FFD700, #FFA500)' : 
+                             'linear-gradient(135deg, #0d6efd, #0043a8)',
+                         borderBottomLeftRadius: '15px',
+                         color: 'white',
+                         boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                         minWidth: '140px',
+                         zIndex: 1
+                     }}>
+                    <h4 className="mb-0 fw-bold" style={{ fontSize: '1.2rem' }}>{pkg.price.toLocaleString()} RWF</h4>
+                    <small className="text-white opacity-75">per month</small>
+                </div>
+
+                {/* Package Content */}
+                <div className="p-4 d-flex flex-column h-100">
+                    {/* Package Header */}
+                    <div className="mb-4" style={{ maxWidth: 'calc(100% - 150px)' }}>
+                        <h3 className="fw-bold text-primary mb-2">{pkg.name}</h3>
+                        <div className="d-flex align-items-center">
+                            <span className="badge bg-light text-primary px-3 py-2 rounded-pill">
+                                {pkg.channels}
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Features List */}
+                    <div className="features-container px-2 mb-4 flex-grow-1" 
+                         style={{
+                             maxHeight: '300px', 
+                             overflowY: 'auto'
+                         }}>
+                        {pkg.features.map((feature, index) => (
+                            <div key={index} 
+                                 className="feature-item d-flex align-items-center mb-3 p-2 rounded"
+                                 style={{
+                                     background: 'rgba(13, 110, 253, 0.05)',
+                                     transition: 'all 0.3s ease'
+                                 }}
+                                 onMouseEnter={(e) => {
+                                     e.currentTarget.style.transform = 'translateX(10px)';
+                                     e.currentTarget.style.background = 'rgba(13, 110, 253, 0.1)';
+                                 }}
+                                 onMouseLeave={(e) => {
+                                     e.currentTarget.style.transform = 'translateX(0)';
+                                     e.currentTarget.style.background = 'rgba(13, 110, 253, 0.05)';
+                                 }}>
+                                <div className="feature-icon me-3"
+                                     style={{
+                                         minWidth: '30px',
+                                         height: '30px',
+                                         borderRadius: '50%',
+                                         background: 'white',
+                                         display: 'flex',
+                                         alignItems: 'center',
+                                         justifyContent: 'center',
+                                         boxShadow: '0 2px 6px rgba(0,0,0,0.1)'
+                                     }}>
+                                    <i className="fas fa-check text-primary" style={{fontSize: '12px'}}></i>
+                                </div>
+                                <span style={{fontSize: '0.9rem'}}>{feature}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Subscribe Button - Now positioned at bottom */}
+                    <div className="mt-auto">
+                        <a href={`https://wa.me/250788601280?text=I'm interested in subscribing to ${pkg.name} package for ${pkg.price.toLocaleString()} RWF`}
+                           className="subscribe-btn d-inline-flex align-items-center justify-content-center gap-2 w-100"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           style={{
+                               background: pkg.name === 'DSTV Premium' ? 
+                                   'linear-gradient(45deg, #FFD700, #FFA500)' : 
+                                   'linear-gradient(45deg, #0d6efd, #0043a8)',
+                               color: 'white',
+                               padding: '12px 30px',
+                               borderRadius: '50px',
+                               textDecoration: 'none',
+                               fontWeight: '500',
+                               transition: 'all 0.3s ease',
+                               border: 'none',
+                               boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
+                           }}
+                           onMouseEnter={(e) => {
+                               e.currentTarget.style.transform = 'translateY(-3px)';
+                               e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.2)';
+                           }}
+                           onMouseLeave={(e) => {
+                               e.currentTarget.style.transform = 'translateY(0)';
+                               e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
+                           }}>
+                            <i className="fab fa-whatsapp" style={{fontSize: '1.2rem'}}></i>
+                            <span>Subscribe Now</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    useEffect(() => {
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = cssAnimations;
+        document.head.appendChild(styleSheet);
+        return () => {
+            document.head.removeChild(styleSheet);
+        };
+    }, []);
 
     return (
         <div>
@@ -1089,77 +1487,43 @@ function CanalDstv() {
             </div>
 
             {/* Subscription Packages Section */}
-            <div className="container-fluid py-5">
+            <div className="container-fluid py-5 bg-light">
                 <div className="container py-5">
-                    <div className="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <div className="text-center mb-5">
                         <h4 className="text-primary">Our Packages</h4>
-                        <h1 className="display-5 mb-4">Choose Your Subscription Package</h1>
+                        <h1 className="display-5 mb-3">Choose Your Package</h1>
+                        <p className="text-muted mb-0">Select from our range of premium entertainment packages</p>
                     </div>
 
-                    {/* Canal+ Packages */}
-                    <h2 className="text-center mb-4">Canal+ Packages</h2>
-                    <div className="row g-4 justify-content-center mb-5">
-                        {canalPackages.map((pkg) => (
-                            <div key={pkg.id} className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                <div className="card h-100 shadow-sm hover-scale">
-                                    <div className="card-body text-center p-4">
-                                        <h3 className="card-title text-primary mb-3">{pkg.name}</h3>
-                                        <h4 className="display-6 mb-4">
-                                            {pkg.price.toLocaleString()} RWF
-                                            <span className="fs-6 text-muted">/month</span>
-                                        </h4>
-                                        <p className="mb-3 text-muted">{pkg.channels}</p>
-                                        <ul className="list-unstyled mb-4">
-                                            {pkg.features.map((feature, index) => (
-                                                <li key={index} className="mb-2">
-                                                    <i className="fas fa-check text-primary me-2"></i>
-                                                    {feature}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        <button 
-                                            className="btn btn-primary px-4 py-2"
-                                            onClick={() => handlePackageSelect(pkg)}
-                                        >
-                                            Subscribe Now
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                    {/* Package Type Selector */}
+                    <div className="text-center mb-4">
+                        <div className="btn-group" role="group" aria-label="Package type selector">
+                            <button 
+                                type="button" 
+                                className={`btn ${selectedPackageType === 'dstv' ? 'btn-primary' : 'btn-outline-primary'} px-4 py-2`}
+                                onClick={() => setSelectedPackageType('dstv')}
+                            >
+                                DStv Packages
+                            </button>
+                            <button 
+                                type="button" 
+                                className={`btn ${selectedPackageType === 'canal' ? 'btn-primary' : 'btn-outline-primary'} px-4 py-2`}
+                                onClick={() => setSelectedPackageType('canal')}
+                            >
+                                Canal+ Packages
+                            </button>
+                        </div>
                     </div>
 
-                    {/* DStv Packages */}
-                    <h2 className="text-center mb-4">DStv Packages</h2>
-                    <div className="row g-4 justify-content-center">
-                        {dstvPackages.map((pkg) => (
-                            <div key={pkg.id} className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                <div className="card h-100 shadow-sm hover-scale">
-                                    <div className="card-body text-center p-4">
-                                        <h3 className="card-title text-primary mb-3">{pkg.name}</h3>
-                                        <h4 className="display-6 mb-4">
-                                            {pkg.price.toLocaleString()} RWF
-                                            <span className="fs-6 text-muted">/month</span>
-                                        </h4>
-                                        <p className="mb-3 text-muted">{pkg.channels}</p>
-                                        <ul className="list-unstyled mb-4">
-                                            {pkg.features.map((feature, index) => (
-                                                <li key={index} className="mb-2">
-                                                    <i className="fas fa-check text-primary me-2"></i>
-                                                    {feature}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                        <button 
-                                            className="btn btn-primary px-4 py-2"
-                                            onClick={() => handlePackageSelect(pkg)}
-                                        >
-                                            Subscribe Now
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                    {/* Packages Grid */}
+                    <div className="row g-4">
+                        {selectedPackageType === 'dstv' ? (
+                            // DSTV Packages
+                            dstvPackages.map(pkg => renderPackage(pkg))
+                        ) : (
+                            // Canal+ Packages
+                            canalPackages.map(pkg => renderPackage(pkg))
+                        )}
                     </div>
                 </div>
             </div>
