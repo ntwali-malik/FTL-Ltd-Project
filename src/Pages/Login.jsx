@@ -1,81 +1,121 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import UserService from '../services/UserService';
 import styled from 'styled-components';
+import { toast } from 'react-toastify';
 
 const LoginContainer = styled.div`
     min-height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
-    background-color: #f8f9fa;
-    padding: 2rem;
+    align-items: center;
+    background: #f8f9fa;
 `;
 
 const LoginCard = styled.div`
     background: white;
     padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
 `;
 
-function Login() {
+const LoginForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+`;
+
+const Input = styled.input`
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+`;
+
+const Button = styled.button`
+    padding: 0.8rem;
+    background: #0984e3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+        background: #0873c4;
+    }
+
+    &:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+    }
+`;
+
+const Login = () => {
+    const [credentials, setCredentials] = useState({ email: '', password: '' });
+    const [loading, setLoading] = useState(false);
+    const { login } = useAuth();
     const navigate = useNavigate();
-    const location = useLocation();
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+
         try {
-            // Add your login logic here
-            // If successful:
-            const returnUrl = location.state?.returnUrl || '/';
-            navigate(returnUrl);
+            // Here you would typically make an API call to verify credentials
+            // For now, we'll simulate it with the UserService
+            const response = await UserService.login(credentials);
+            
+            if (response.roles.includes('ADMIN')) {
+                login(response);
+                navigate('/admin');
+                toast.success('Welcome back, Admin!');
+            } else {
+                toast.error('Unauthorized access');
+            }
         } catch (error) {
-            console.error('Login failed:', error);
-            alert('Login failed. Please try again.');
+            toast.error(error.message || 'Login failed');
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <LoginContainer>
             <LoginCard>
-                <h2 className="text-center mb-4">Login</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label className="form-label">Email</label>
-                        <input
-                            type="email"
-                            className="form-control"
-                            value={formData.email}
-                            onChange={(e) => setFormData({...formData, email: e.target.value})}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Password</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            value={formData.password}
-                            onChange={(e) => setFormData({...formData, password: e.target.value})}
-                            required
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-primary w-100">
-                        Login
-                    </button>
-                </form>
-                <div className="text-center mt-3">
-                    <p>Don't have an account? <a href="/register">Register here</a></p>
-                </div>
+                <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Admin Login</h2>
+                <LoginForm onSubmit={handleSubmit}>
+                    <Input
+                        type="email"
+                        placeholder="Email"
+                        value={credentials.email}
+                        onChange={(e) => setCredentials({
+                            ...credentials,
+                            email: e.target.value
+                        })}
+                        required
+                    />
+                    <Input
+                        type="password"
+                        placeholder="Password"
+                        value={credentials.password}
+                        onChange={(e) => setCredentials({
+                            ...credentials,
+                            password: e.target.value
+                        })}
+                        required
+                    />
+                    <Button type="submit" disabled={loading}>
+                        {loading ? 'Logging in...' : 'Login'}
+                    </Button>
+                </LoginForm>
             </LoginCard>
         </LoginContainer>
     );
-}
+};
 
 export default Login; 

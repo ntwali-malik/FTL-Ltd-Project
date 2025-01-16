@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { useTheme, themes } from '../context/ThemeContext';
 import { useMediaQuery } from 'react-responsive';
 import Confetti from 'react-confetti';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import InternshipService from '../services/InternshipService';
 
 // Enhanced styled components with theme support
 const PageContainer = styled.div`
@@ -288,25 +291,20 @@ function InternshipRegistration() {
         setLoading(true);
 
         try {
-            const response = await internshipService.registerIntern(formData);
-            
-            if (response.success) {
-                setShowSuccessPopup(true); // Show success popup
-                // Reset form
-                setFormData({
-                    fullName: '',
-                    email: '',
-                    phone: '',
-                    program: '',
-                    education: '',
-                    startDate: ''
-                });
-                setStep(1);
-            } else {
-                toast.error(response.message);
-            }
+            await InternshipService.registerIntern(formData);
+            setShowSuccessPopup(true); // Show success popup
+            // Reset form
+            setFormData({
+                fullName: '',
+                email: '',
+                phone: '',
+                program: '',
+                education: '',
+                startDate: ''
+            });
+            setStep(1);
         } catch (error) {
-            toast.error('An error occurred during registration');
+            toast.error(error.message || 'An error occurred during registration');
             console.error('Registration error:', error);
         } finally {
             setLoading(false);
@@ -559,6 +557,19 @@ function InternshipRegistration() {
                     </>
                 )}
             </AnimatePresence>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
         </PageContainer>
     );
 }

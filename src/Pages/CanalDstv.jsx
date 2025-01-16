@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify';
-import { createDecoderOrder } from '../services/decoderOrderService';
+import decoderOrderService from '../services/decoderOrderService';
+import TechnicalSupportService from '../services/TechnicalSupportService';
 
 function CanalDstv() {
     const [selectedPackage, setSelectedPackage] = useState(null);
@@ -288,71 +289,77 @@ function CanalDstv() {
     const canalPackages = [
         {
             id: 'c1',
-            name: 'Access',
-            price: 7000,
-            channels: '150+ channels',
+            name: 'IKAZE',
+            price: 5000,
+            channels: '70+ channels',
             features: [
+                'Local channels (RTV, Rwanda TV)',
+                'News channels (France 24, BBC World)',
+                'Kids channels (Gulli Africa)',
                 'Entertainment channels',
-                'News channels (BBC World, France 24, etc.)',
-                'Kids channels (Gulli Africa, Cartoon Network)',
-                'Local channels',
-                'Music channels',
                 'Religious channels',
-                'Educational content'
+                'Music channels (Trace Africa)',
+                'Educational content',
+                'African series and movies'
             ],
             provider: 'Canal+'
         },
         {
             id: 'c2',
-            name: 'Evasion',
-            price: 12000,
-            channels: '180+ channels',
+            name: 'ZAMUKA',
+            price: 10000,
+            channels: '100+ channels',
             features: [
-                'All Access features',
-                'Sports channels (Sport 1, Sport 2)',
-                'Movie channels (Canal+ Cinema)',
+                'All IKAZE features',
+                'Premium entertainment channels',
+                'Extended news coverage',
+                'More kids channels',
                 'Documentary channels',
-                'Extended entertainment package',
-                'Premium series channels',
-                'Additional kids channels',
-                'Enhanced music selection'
+                'Fashion TV',
+                'Lifestyle channels',
+                'African premium content',
+                'Extended music selection',
+                'More movie channels'
             ],
             provider: 'Canal+'
         },
         {
             id: 'c3',
-            name: 'Essentiel+',
-            price: 18000,
-            channels: '200+ channels',
+            name: 'ZAMUKA NA SIPORO',
+            price: 20000,
+            channels: '150+ channels',
             features: [
-                'All Evasion features',
-                'Premium sports (Canal+ Sport)',
-                'Premium movies (Canal+ Cinema, Action)',
-                'International channels',
-                'Exclusive content',
-                'HD channels',
-                'Multi-screen access',
-                'Video on demand',
-                'Extended sports coverage'
+                'All ZAMUKA features',
+                'Sports channels (Canal+ Sport)',
+                'Live football matches',
+                'International sports coverage',
+                'Premium movie channels',
+                'Extended entertainment package',
+                'HD channels available',
+                'Premium series channels',
+                'International entertainment',
+                'Enhanced documentary selection'
             ],
             provider: 'Canal+'
         },
         {
             id: 'c4',
-            name: 'Tout Canal+',
+            name: 'UBUKI',
             price: 30000,
-            channels: '220+ channels',
+            channels: 'FULL BOUQUET',
             features: [
-                'All Essentiel+ features',
-                'Complete Canal+ experience',
-                'Full sports package',
-                'All movie channels',
-                'Premium series',
+                'All ZAMUKA NA SIPORO features',
+                'Complete sports package',
+                'All premium movie channels',
                 'Exclusive international content',
-                'First-run movies and series',
-                'Ultra HD content where available',
+                'All entertainment channels',
+                'Complete documentary selection',
+                'Full HD channels',
+                'Premium series and shows',
                 'Priority customer service',
-                'Multi-device streaming'
+                'Multi-device streaming',
+                'First access to new content',
+                'Video on demand service'
             ],
             provider: 'Canal+'
         }
@@ -542,13 +549,13 @@ function CanalDstv() {
                 decoderType: decoderOrderDetails.decoderType,
                 installationType: decoderOrderDetails.installationType,
                 name: decoderOrderDetails.name,
-                phoneNumber: decoderOrderDetails.phone,
+                phone: decoderOrderDetails.phone, // Note: using 'phone' to match the form data
                 email: decoderOrderDetails.email,
                 location: decoderOrderDetails.location
             };
 
             // Call the service to submit the order
-            const result = await createDecoderOrder(orderData);
+            const result = await decoderOrderService.createDecoderOrder(orderData);
 
             if (result.success) {
                 toast.success('Order submitted successfully! Please check your email for confirmation.');
@@ -578,7 +585,7 @@ function CanalDstv() {
         setLoading(true);
         
         try {
-            await technicalSupportService.submitTechnicalSupport(technicalSupportForm);
+            await TechnicalSupportService.createTechnicalSupport(technicalSupportForm);
             toast.success('Technical support request submitted successfully! Check your email for confirmation.');
             
             // Reset form

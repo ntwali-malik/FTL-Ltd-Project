@@ -1,20 +1,20 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/api/technical-support';
+const API_BASE_URL = 'http://localhost:8080/api/internships';
 
-class TechnicalSupportService {
-    // Create a new technical support request
-    async createTechnicalSupport(supportData) {
+class InternshipService {
+    // Create a new internship registration
+    async registerIntern(internData) {
         try {
-            const response = await axios.post(API_BASE_URL, supportData);
+            const response = await axios.post(API_BASE_URL, internData);
             return response.data;
         } catch (error) {
             throw this.handleError(error);
         }
     }
 
-    // Get all technical support requests
-    async getAllTechnicalSupport() {
+    // Get all internship registrations
+    async getAllRegistrations() {
         try {
             const response = await axios.get(API_BASE_URL);
             return response.data;
@@ -23,8 +23,8 @@ class TechnicalSupportService {
         }
     }
 
-    // Get a specific technical support request by ID
-    async getTechnicalSupportById(id) {
+    // Get a specific internship registration by ID
+    async getRegistrationById(id) {
         try {
             const response = await axios.get(`${API_BASE_URL}/${id}`);
             return response.data;
@@ -33,8 +33,18 @@ class TechnicalSupportService {
         }
     }
 
-    // Update the status of a technical support request
-    async updateSupportStatus(id, status) {
+    // Delete an internship registration
+    async deleteRegistration(id) {
+        try {
+            const response = await axios.delete(`${API_BASE_URL}/${id}`);
+            return response.data;
+        } catch (error) {
+            throw this.handleError(error);
+        }
+    }
+
+    // Update internship status
+    async updateStatus(id, status) {
         try {
             const response = await axios.patch(`${API_BASE_URL}/${id}/status`, { status });
             return response.data;
@@ -46,17 +56,14 @@ class TechnicalSupportService {
     // Helper method to handle errors
     handleError(error) {
         if (error.response) {
-            // Server responded with error
             const message = error.response.data?.message || 'An error occurred with the server';
             return new Error(message);
         } else if (error.request) {
-            // Request made but no response
             return new Error('No response received from server');
         } else {
-            // Error setting up request
             return new Error('Error setting up request');
         }
     }
 }
 
-export default new TechnicalSupportService();
+export default new InternshipService(); 
