@@ -1229,7 +1229,7 @@ function CanalDstv() {
 
                     {/* Subscribe Button - Now positioned at bottom */}
                     <div className="mt-auto">
-                        <a href={`https://wa.me/250788601280?text=I'm interested in subscribing to ${pkg.name} package for ${pkg.price.toLocaleString()} RWF`}
+                        <a href={`https://wa.me/250787850294?text=I'm interested in subscribing to ${pkg.name} package for ${pkg.price.toLocaleString()} RWF`}
                            className="subscribe-btn d-inline-flex align-items-center justify-content-center gap-2 w-100"
                            target="_blank"
                            rel="noopener noreferrer"

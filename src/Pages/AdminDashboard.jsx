@@ -3,8 +3,13 @@ import TechnicalSupportService from '../services/TechnicalSupportService';
 import DecoderOrderService from '../services/decoderOrderService';
 import InternshipService from '../services/InternshipService';
 import UserService from '../services/UserService';
+import SecurityInquiryService from '../services/SecurityInquiryService';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
+import ExportService from '../services/ExportService';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from 'react-router-dom';
 
 // Updated Styled Components
 const DashboardContainer = styled.div`
@@ -27,13 +32,15 @@ const Sidebar = styled.div`
     height: 100vh;
     position: fixed;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 
     @media (max-width: 768px) {
         width: 100%;
         height: auto;
         position: relative;
         transform: ${props => props.$isOpen ? 'translateX(0)' : 'translateX(-100%)'};
-        display: ${props => props.$isOpen ? 'block' : 'none'};
+        display: ${props => props.$isOpen ? 'flex' : 'none'};
         padding: 1rem;
     }
 `;
@@ -509,7 +516,85 @@ const CloseButton = styled.button`
     }
 `;
 
+const ExportControls = styled.div`
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+`;
+
+const ExportModal = ({ isOpen, onClose, onExport, startDate, endDate, setStartDate, setEndDate }) => {
+    if (!isOpen) return null;
+
+    return (
+        <Modal>
+            <ModalContent>
+                <ModalHeader>
+                    <h2>Export Data</h2>
+                    <CloseButton onClick={onClose}>✕</CloseButton>
+                </ModalHeader>
+                <div className="p-4">
+                    <FormGroup>
+                        <label>Start Date:</label>
+                        <DatePicker
+                            selected={startDate}
+                            onChange={date => setStartDate(date)}
+                            className="form-control"
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <label>End Date:</label>
+                        <DatePicker
+                            selected={endDate}
+                            onChange={date => setEndDate(date)}
+                            className="form-control"
+                        />
+                    </FormGroup>
+                    <ButtonGroup>
+                        <Button 
+                            className="primary"
+                            onClick={() => onExport('excel')}
+                        >
+                            Export to Excel
+                        </Button>
+                        <Button 
+                            className="primary"
+                            onClick={() => onExport('pdf')}
+                        >
+                            Export to PDF
+                        </Button>
+                    </ButtonGroup>
+                </div>
+            </ModalContent>
+        </Modal>
+    );
+};
+
+const LogoutButton = styled(NavButton)`
+    margin-top: auto;
+    background: #e74c3c;
+    color: white;
+    
+    &:hover {
+        background: #c0392b;
+    }
+
+    @media (max-width: 768px) {
+        margin-top: 1rem;
+    }
+`;
+
 const AdminDashboard = () => {
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('technical');
     const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 768);
     const [requests, setRequests] = useState([]);
@@ -527,6 +612,10 @@ const AdminDashboard = () => {
     });
     const [showEditUserModal, setShowEditUserModal] = useState(false);
     const [editingUser, setEditingUser] = useState(null);
+    const [securityInquiries, setSecurityInquiries] = useState([]);
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+    const [showExportModal, setShowExportModal] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -546,6 +635,10 @@ const AdminDashboard = () => {
             fetchInternships();
         } else if (activeTab === 'users') {
             fetchUsers();
+        } else if (activeTab === 'security') {
+            fetchSecurityInquiries();
+        } else if (activeTab === 'training') {
+            // Fetch training data
         }
     }, [activeTab]);
 
@@ -598,9 +691,26 @@ const AdminDashboard = () => {
         }
     };
 
+    const fetchSecurityInquiries = async () => {
+        try {
+            setLoading(true);
+            const data = await SecurityInquiryService.getAllInquiries();
+            setSecurityInquiries(data);
+        } catch (error) {
+            console.error('Error fetching security inquiries:', error);
+            toast.error('Failed to fetch security inquiries');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const handleStatusChange = async (id, newStatus, type) => {
         try {
-            if (type === 'technical') {
+            if (type === 'security') {
+                await SecurityInquiryService.updateStatus(id, newStatus);
+                await fetchSecurityInquiries();
+                toast.success('Security inquiry status updated successfully');
+            } else if (type === 'technical') {
                 await TechnicalSupportService.updateSupportStatus(id, newStatus);
                 await fetchTechnicalRequests();
             } else if (type === 'decoder') {
@@ -677,22 +787,106 @@ const AdminDashboard = () => {
         }
     };
 
+    const handleExport = (type) => {
+        try {
+            let data;
+            let fileName;
+
+            // Get the appropriate data based on active tab
+            switch (activeTab) {
+                case 'security':
+                    data = securityInquiries;
+                    fileName = 'security-inquiries';
+                    break;
+                case 'technical':
+                    data = requests;
+                    fileName = 'technical-support';
+                    break;
+                case 'decoder':
+                    data = decoderOrders;
+                    fileName = 'decoder-orders';
+                    break;
+                case 'internships':
+                    data = internships;
+                    fileName = 'internships';
+                    break;
+                default:
+                    data = [];
+                    fileName = 'export';
+            }
+
+            // Add console logs for debugging
+            console.log('Raw data:', data);
+            console.log('Date range:', { startDate, endDate });
+
+            // Filter data by date range
+            const filteredData = ExportService.filterByDateRange(data, startDate, endDate);
+            console.log('Filtered data:', filteredData);
+
+            if (filteredData.length === 0) {
+                toast.warning('No data available for the selected date range');
+                return;
+            }
+
+            // Export based on selected type
+            if (type === 'excel') {
+                ExportService.exportToExcel(filteredData, `${fileName}-${startDate.toISOString().split('T')[0]}`);
+            } else {
+                ExportService.exportToPDF(filteredData, `${fileName}-${startDate.toISOString().split('T')[0]}`);
+            }
+
+            setShowExportModal(false);
+            toast.success(`Successfully exported to ${type.toUpperCase()}`);
+        } catch (error) {
+            console.error('Export error:', error);
+            toast.error('Failed to export data');
+        }
+    };
+
+    const handleLogout = () => {
+        try {
+            // Clear any stored tokens/user data
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            
+            // Show success message
+            toast.success('Logged out successfully');
+            
+            // Redirect to login page
+            navigate('/');
+        } catch (error) {
+            console.error('Logout error:', error);
+            toast.error('Failed to logout');
+        }
+    };
+
     const renderRequests = () => {
         const items = activeTab === 'technical' ? requests : 
                      activeTab === 'decoder' ? decoderOrders : 
+                     activeTab === 'security' ? securityInquiries :
                      internships;
         
         return items.map((item) => (
             <RequestCard key={item.id} $status={item.status}>
                 <h3>{item.fullName || item.name}</h3>
                 <p>📧 Email: {item.email}</p>
-                {activeTab === 'technical' ? (
+                {activeTab === 'security' ? (
+                    // Security Inquiry specific fields
+                    <>
+                        <p>📱 Phone: {item.phoneNumber}</p>
+                        <p>🏢 Company: {item.companyName || 'N/A'}</p>
+                        <p>🔒 Product: {item.selectedProduct}</p>
+                        <p>📍 Location: {item.location}</p>
+                        <p>🔧 Service Type: {item.serviceType}</p>
+                        <p>📝 Additional Info: {item.additionalInfo || 'None provided'}</p>
+                    </>
+                ) : activeTab === 'technical' ? (
                     // Technical Support specific fields
                     <>
                         <p>📱 Phone: {item.phoneNumber}</p>
                         <p>🏢 Service Provider: {item.serviceProvider}</p>
                         <p>🔧 Issue Type: {item.issueType}</p>
-                        <p>💳 Smart Card Number: {item.smartCardNumber}</p>
+                        <p>🔧 Smart Card Number: {item.smartCardNumber}</p>
                         <p>📝 Issue Description: {item.issueDescription}</p>
                     </>
                 ) : activeTab === 'decoder' ? (
@@ -706,7 +900,7 @@ const AdminDashboard = () => {
                 ) : (
                     // Internship specific fields
                     <>
-                        <p>�� Phone: {item.phone}</p>
+                        <p>📱 Phone: {item.phone}</p>
                         <p>🎓 Education: {item.education}</p>
                         <p>📚 Program: {item.program}</p>
                         <p>📅 Start Date: {new Date(item.startDate).toLocaleDateString()}</p>
@@ -725,19 +919,9 @@ const AdminDashboard = () => {
                             activeTab
                         )}
                     >
-                        {activeTab === 'internships' ? (
-                            <>
-                                <option value="Pending">Pending</option>
-                                <option value="Approved">Approved</option>
-                                <option value="Rejected">Rejected</option>
-                            </>
-                        ) : (
-                            <>
-                                <option value="Pending">Pending</option>
-                                <option value="In Progress">In Progress</option>
-                                <option value="Completed">Completed</option>
-                            </>
-                        )}
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
                     </StatusSelect>
                 </p>
 
@@ -755,12 +939,12 @@ const AdminDashboard = () => {
     };
 
     const getStatusCounts = () => {
-        if (activeTab === 'internships') {
+        if (activeTab === 'security') {
             return {
-                total: internships.length,
-                pending: internships.filter(item => !item.status || item.status === 'Pending').length,
-                approved: internships.filter(item => item.status === 'Approved').length,
-                rejected: internships.filter(item => item.status === 'Rejected').length
+                total: securityInquiries.length,
+                pending: securityInquiries.filter(item => !item.status || item.status === 'Pending').length,
+                inProgress: securityInquiries.filter(item => item.status === 'In Progress').length,
+                completed: securityInquiries.filter(item => item.status === 'Completed').length
             };
         }
 
@@ -1015,6 +1199,15 @@ const AdminDashboard = () => {
                 >
                     <span>👥</span> User Management
                 </NavButton>
+                <NavButton 
+                    $active={activeTab === 'security'}
+                    onClick={() => setActiveTab('security')}
+                >
+                    <span>🔒</span> Security Inquiries
+                </NavButton>
+                <LogoutButton onClick={handleLogout}>
+                    <span>🚪</span> Logout
+                </LogoutButton>
             </Sidebar>
 
             <MainContent>
@@ -1061,6 +1254,14 @@ const AdminDashboard = () => {
                                     </>
                                 )}
                             </div>
+                            <ExportControls>
+                                <Button 
+                                    className="primary"
+                                    onClick={() => setShowExportModal(true)}
+                                >
+                                    📊 Export Data
+                                </Button>
+                            </ExportControls>
                         </StyledHeader>
                         {renderRequests()}
                     </>
@@ -1068,6 +1269,16 @@ const AdminDashboard = () => {
                     renderUsers()
                 )}
             </MainContent>
+            
+            <ExportModal 
+                isOpen={showExportModal}
+                onClose={() => setShowExportModal(false)}
+                onExport={handleExport}
+                startDate={startDate}
+                endDate={endDate}
+                setStartDate={setStartDate}
+                setEndDate={setEndDate}
+            />
         </DashboardContainer>
     );
 };

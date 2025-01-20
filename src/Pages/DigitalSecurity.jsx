@@ -1,6 +1,135 @@
-import React from 'react'
+import React, { useState } from 'react'
+import SecurityInquiryService from '../services/SecurityInquiryService';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function DigitalSecurity() {
+    const [selectedProduct, setSelectedProduct] = useState("");
+    const [inquiryForm, setInquiryForm] = useState({
+        name: "",
+        email: "",
+        phone: "",
+        location: "",
+        requestType: "quotation",
+        preferredDate: "",
+        quantity: "",
+        message: "",
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const closeModal = () => {
+        const modal = document.getElementById('inquiryModal');
+        if (modal) {
+            const bootstrapModal = bootstrap.Modal.getInstance(modal);
+            if (bootstrapModal) {
+                bootstrapModal.hide();
+            } else if (window.bootstrap && window.bootstrap.Modal) {
+                const newModal = new window.bootstrap.Modal(modal);
+                newModal.hide();
+            }
+        }
+    };
+
+    const showSuccessToast = (message) => {
+        toast.success(message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    };
+
+    const showErrorToast = (message) => {
+        toast.error(message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    };
+
+    const handleInquirySubmit = async (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        
+        try {
+            // Create the formatted data object
+            const formData = {
+                product: selectedProduct,
+                requestType: inquiryForm.requestType,
+                name: inquiryForm.name,
+                email: inquiryForm.email,
+                phone: inquiryForm.phone,
+                location: inquiryForm.location,
+                preferredDate: inquiryForm.requestType === 'site_survey' ? inquiryForm.preferredDate : null,
+                quantity: inquiryForm.requestType === 'quotation' ? parseInt(inquiryForm.quantity) : null,
+                message: inquiryForm.message
+            };
+
+            // Send the inquiry
+            const response = await SecurityInquiryService.createInquiry(formData);
+
+            // If successful, reset form and show success message
+            if (response.status === 200) {
+                // Reset form
+                setInquiryForm({
+                    name: "",
+                    email: "",
+                    phone: "",
+                    location: "",
+                    requestType: "quotation",
+                    preferredDate: "",
+                    quantity: "",
+                    message: "",
+                });
+
+                // Close modal
+                closeModal();
+
+                // Show success message
+                const successMessage = inquiryForm.requestType === 'site_survey'
+                    ? "Thank you! We will contact you soon to confirm the site survey appointment."
+                    : "Thank you! We will send you a quotation as soon as possible.";
+
+                setTimeout(() => {
+                    showSuccessToast(successMessage);
+                }, 100);
+            }
+        } catch (error) {
+            console.error('Error submitting inquiry:', error);
+            
+            // Show error message
+            setTimeout(() => {
+                showErrorToast("Sorry, there was an error submitting your inquiry. Please try again later.");
+            }, 100);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const handleProductInquiry = (productName) => {
+        setSelectedProduct(productName);
+        // Open the modal using Bootstrap
+        const modal = new window.bootstrap.Modal(document.getElementById('inquiryModal'));
+        modal.show();
+    };
+
+    const InquiryButton = ({ productName }) => (
+        <button 
+            className="btn btn-primary mt-3 w-100"
+            onClick={() => handleProductInquiry(productName)}
+        >
+            <i className="fas fa-shopping-cart me-2"></i>
+            Request Information
+        </button>
+    );
+
     return (
         <div>
             {/* <!-- Topbar Start --> */}
@@ -91,6 +220,7 @@ function DigitalSecurity() {
                                         <li><i className="fas fa-check text-primary me-2"></i>Night Vision</li>
                                         <li><i className="fas fa-check text-primary me-2"></i>Motion Detection</li>
                                     </ul>
+                                    <InquiryButton productName="IP Cameras" />
                                 </div>
                             </div>
                         </div>
@@ -108,6 +238,7 @@ function DigitalSecurity() {
                                         <li><i className="fas fa-check text-primary me-2"></i>Vandal Proof</li>
                                         <li><i className="fas fa-check text-primary me-2"></i>Weather Resistant</li>
                                     </ul>
+                                    <InquiryButton productName="Dome Cameras" />
                                 </div>
                             </div>
                         </div>
@@ -125,6 +256,7 @@ function DigitalSecurity() {
                                         <li><i className="fas fa-check text-primary me-2"></i>Auto Tracking</li>
                                         <li><i className="fas fa-check text-primary me-2"></i>30x Optical Zoom</li>
                                     </ul>
+                                    <InquiryButton productName="PTZ Cameras" />
                                 </div>
                             </div>
                         </div>
@@ -204,6 +336,7 @@ function DigitalSecurity() {
                                         <li><i className="fas fa-check text-primary me-2"></i>Facial Recognition</li>
                                         <li><i className="fas fa-check text-primary me-2"></i>Time Attendance</li>
                                     </ul>
+                                    <InquiryButton productName="Biometric Systems" />
                                 </div>
                             </div>
                         </div>
@@ -221,6 +354,7 @@ function DigitalSecurity() {
                                         <li><i className="fas fa-check text-primary me-2"></i>Smart Cards</li>
                                         <li><i className="fas fa-check text-primary me-2"></i>Mobile Access</li>
                                     </ul>
+                                    <InquiryButton productName="RFID Systems" />
                                 </div>
                             </div>
                         </div>
@@ -238,6 +372,7 @@ function DigitalSecurity() {
                                         <li><i className="fas fa-check text-primary me-2"></i>Boom Barriers</li>
                                         <li><i className="fas fa-check text-primary me-2"></i>Speed Gates</li>
                                     </ul>
+                                    <InquiryButton productName="Entry Gates" />
                                 </div>
                             </div>
                         </div>
@@ -267,6 +402,7 @@ function DigitalSecurity() {
                                         <li><i className="fas fa-check text-primary me-2"></i>High Sensitivity</li>
                                         <li><i className="fas fa-check text-primary me-2"></i>Traffic Counter</li>
                                     </ul>
+                                    <InquiryButton productName="Metal Detectors" />
                                 </div>
                             </div>
                         </div>
@@ -284,6 +420,7 @@ function DigitalSecurity() {
                                         <li><i className="fas fa-check text-primary me-2"></i>Threat Detection</li>
                                         <li><i className="fas fa-check text-primary me-2"></i>Image Analysis</li>
                                     </ul>
+                                    <InquiryButton productName="X-Ray Scanners" />
                                 </div>
                             </div>
                         </div>
@@ -301,6 +438,7 @@ function DigitalSecurity() {
                                         <li><i className="fas fa-check text-primary me-2"></i>Glass Break Detection</li>
                                         <li><i className="fas fa-check text-primary me-2"></i>Pet Immunity</li>
                                     </ul>
+                                    <InquiryButton productName="Motion Sensors" />
                                 </div>
                             </div>
                         </div>
@@ -330,6 +468,7 @@ function DigitalSecurity() {
                                         <li><i className="fas fa-check text-primary me-2"></i>Mobile App Integration</li>
                                         <li><i className="fas fa-check text-primary me-2"></i>Two-way Audio</li>
                                     </ul>
+                                    <InquiryButton productName="Video Intercoms" />
                                 </div>
                             </div>
                         </div>
@@ -347,6 +486,7 @@ function DigitalSecurity() {
                                         <li><i className="fas fa-check text-primary me-2"></i>Emergency Alerts</li>
                                         <li><i className="fas fa-check text-primary me-2"></i>Automatic Sprinklers</li>
                                     </ul>
+                                    <InquiryButton productName="Fire Detection" />
                                 </div>
                             </div>
                         </div>
@@ -364,6 +504,7 @@ function DigitalSecurity() {
                                         <li><i className="fas fa-check text-primary me-2"></i>Surge Protection</li>
                                         <li><i className="fas fa-check text-primary me-2"></i>Battery Management</li>
                                     </ul>
+                                    <InquiryButton productName="Backup Power" />
                                 </div>
                             </div>
                         </div>
@@ -383,8 +524,157 @@ function DigitalSecurity() {
                                         <li><i className="fas fa-check text-primary me-2"></i>Intrusion Detection</li>
                                         <li><i className="fas fa-check text-primary me-2"></i>24/7 Monitoring</li>
                                     </ul>
+                                    <InquiryButton productName="Network Security" />
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* <!-- Inquiry Modal --> */}
+            <div className="modal fade" id="inquiryModal" tabIndex="-1" aria-labelledby="inquiryModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="inquiryModalLabel">
+                                <i className="fas fa-shield-alt me-2"></i>
+                                Security Consultation Request
+                            </h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <form onSubmit={handleInquirySubmit}>
+                                {selectedProduct && (
+                                    <div className="mb-3">
+                                        <label className="form-label">Selected Product</label>
+                                        <input 
+                                            type="text" 
+                                            className="form-control" 
+                                            value={selectedProduct} 
+                                            disabled 
+                                        />
+                                    </div>
+                                )}
+                                <div className="mb-3">
+                                    <label className="form-label">Request Type</label>
+                                    <select 
+                                        className="form-select"
+                                        value={inquiryForm.requestType}
+                                        onChange={(e) => setInquiryForm({...inquiryForm, requestType: e.target.value})}
+                                        required
+                                    >
+                                        <option value="quotation">Request Quotation</option>
+                                        <option value="site_survey">Request Site Survey</option>
+                                    </select>
+                                </div>
+
+                                <div className="mb-3">
+                                    <label htmlFor="name" className="form-label">Full Name</label>
+                                    <input 
+                                        type="text" 
+                                        className="form-control" 
+                                        id="name" 
+                                        required 
+                                        value={inquiryForm.name}
+                                        onChange={(e) => setInquiryForm({...inquiryForm, name: e.target.value})}
+                                    />
+                                </div>
+
+                                <div className="mb-3">
+                                    <label htmlFor="email" className="form-label">Email</label>
+                                    <input 
+                                        type="email" 
+                                        className="form-control" 
+                                        id="email" 
+                                        required
+                                        value={inquiryForm.email}
+                                        onChange={(e) => setInquiryForm({...inquiryForm, email: e.target.value})}
+                                    />
+                                </div>
+
+                                <div className="mb-3">
+                                    <label htmlFor="phone" className="form-label">Phone Number</label>
+                                    <input 
+                                        type="tel" 
+                                        className="form-control" 
+                                        id="phone" 
+                                        required
+                                        value={inquiryForm.phone}
+                                        onChange={(e) => setInquiryForm({...inquiryForm, phone: e.target.value})}
+                                    />
+                                </div>
+
+                                <div className="mb-3">
+                                    <label htmlFor="location" className="form-label">Location/Address</label>
+                                    <input 
+                                        type="text" 
+                                        className="form-control" 
+                                        id="location" 
+                                        required
+                                        value={inquiryForm.location}
+                                        onChange={(e) => setInquiryForm({...inquiryForm, location: e.target.value})}
+                                        placeholder="Enter your site location"
+                                    />
+                                </div>
+
+                                {inquiryForm.requestType === 'site_survey' && (
+                                    <div className="mb-3">
+                                        <label htmlFor="preferredDate" className="form-label">Preferred Survey Date</label>
+                                        <input 
+                                            type="date" 
+                                            className="form-control" 
+                                            id="preferredDate"
+                                            value={inquiryForm.preferredDate}
+                                            onChange={(e) => setInquiryForm({...inquiryForm, preferredDate: e.target.value})}
+                                            min={new Date().toISOString().split('T')[0]} // Prevents selecting past dates
+                                        />
+                                    </div>
+                                )}
+
+                                {inquiryForm.requestType === 'quotation' && (
+                                    <div className="mb-3">
+                                        <label htmlFor="quantity" className="form-label">Quantity Required</label>
+                                        <input 
+                                            type="number" 
+                                            className="form-control" 
+                                            id="quantity"
+                                            value={inquiryForm.quantity}
+                                            onChange={(e) => setInquiryForm({...inquiryForm, quantity: e.target.value})}
+                                            min="1"
+                                        />
+                                    </div>
+                                )}
+
+                                <div className="mb-3">
+                                    <label htmlFor="message" className="form-label">Additional Information</label>
+                                    <textarea 
+                                        className="form-control" 
+                                        id="message" 
+                                        rows="3"
+                                        value={inquiryForm.message}
+                                        onChange={(e) => setInquiryForm({...inquiryForm, message: e.target.value})}
+                                        placeholder={inquiryForm.requestType === 'site_survey' 
+                                            ? "Please provide any specific requirements or concerns for the site survey..."
+                                            : "Please provide any specific requirements or details about your needs..."}
+                                    ></textarea>
+                                </div>
+
+                                <button 
+                                    type="submit" 
+                                    className="btn btn-primary"
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? (
+                                        <>
+                                            <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                            Submitting...
+                                        </>
+                                    ) : (
+                                        inquiryForm.requestType === 'site_survey' ? 'Request Site Survey' : 'Request Quotation'
+                                    )}
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -461,6 +751,19 @@ function DigitalSecurity() {
                 <i className="fa fa-arrow-up"></i>
             </a>
             {/* <!-- Copyright End --> */}
+
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
         </div>
     )
 }

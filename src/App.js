@@ -23,6 +23,7 @@ import AdminDashboard from './Pages/AdminDashboard';
 import { AuthProvider } from './context/AuthContext';
 import Unauthorized from './Pages/Unauthorized';
 import ProtectedRoute from './Components/ProtectedRoutes';
+import AllCourses from './Pages/AllCourses';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
+            <Route path="/courses" element={<AllCourses />} />
             <Route
               path="/admin/*"
               element={

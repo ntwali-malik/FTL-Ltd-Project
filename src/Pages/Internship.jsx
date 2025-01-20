@@ -1,6 +1,35 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { trainingData } from '../data/trainingData'
 
 function Internship() {
+    const { currentIntake, nextIntake, shortCourses } = trainingData;
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [current, next, courses] = await Promise.all([
+                    TrainingService.getCurrentIntake(),
+                    TrainingService.getNextIntake(),
+                    TrainingService.getAllCourses()
+                ]);
+                setCurrentIntake(current);
+                setNextIntake(next);
+                setShortCourses(courses);
+            } catch (error) {
+                console.error('Error fetching training data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
     // Add internal styles at the top of the component
     const styles = {
         hoverScale: {
@@ -183,7 +212,7 @@ function Internship() {
                                     alt="Security Systems"
                                     style={{ height: '250px', objectFit: 'cover', padding: '15px' }} />
                                 <div className="card-body text-center">
-                                    <h3 className="card-title h5 text-primary">Security Systems</h3>
+                                    <h3 className="card-title h5 text-primary">Digital Security</h3>
                                     <p className="card-text">Learn installation and maintenance of security systems.</p>
                                     <ul className="list-unstyled text-start">
                                         <li><i className="fas fa-check text-primary me-2"></i>CCTV Installation</li>
@@ -206,50 +235,64 @@ function Internship() {
                     </div>
 
                     <div className="row g-4">
-                        {/* Current Intake */}
-                        <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                        {/* Current Intake Card */}
+                        <div className="col-lg-6">
                             <div className="position-relative h-100">
-                                <div className="bg-white p-4 rounded shadow-sm h-100">
+                                <div className="bg-white p-4 rounded shadow-lg h-100 hover-scale">
                                     <div className="d-flex align-items-center mb-3">
                                         <div className="btn-lg-square bg-primary rounded-circle me-3">
-                                            <i className="fas fa-calendar-alt text-white"></i>
+                                            <i className="fas fa-calendar-alt text-white fs-3"></i>
                                         </div>
-                                        <h4 className="mb-0">Current Intake</h4>
+                                        <h3 className="mb-0">Current Intake</h3>
                                     </div>
-                                    <span className="bg-primary text-white px-3 py-1 rounded position-absolute" 
-                                          style={{ top: '20px', right: '20px' }}>
-                                        Enrolling Now
-                                    </span>
+                                    <div className="bg-primary text-white px-3 py-1 rounded position-absolute" 
+                                         style={{ top: '20px', right: '20px' }}>
+                                        <i className="fas fa-fire me-2"></i>{currentIntake.status}
+                                    </div>
                                     <div className="border-top mt-4 pt-4">
                                         <div className="row g-4">
                                             <div className="col-sm-6">
-                                                <div className="d-flex align-items-center">
+                                                <div className="feature-item">
+                                                    <i className="fas fa-calendar-day text-primary me-2"></i>
+                                                    <div>
+                                                        <h5 className="mb-0">Start Date</h5>
+                                                        <p className="mb-0">{currentIntake.startDate}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-sm-6">
+                                                <div className="feature-item">
                                                     <i className="fas fa-clock text-primary me-2"></i>
-                                                    <span><strong>Start Date:</strong><br/>January 15, 2024</span>
+                                                    <div>
+                                                        <h5 className="mb-0">Duration</h5>
+                                                        <p className="mb-0">{currentIntake.duration}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="col-sm-6">
-                                                <div className="d-flex align-items-center">
-                                                    <i className="fas fa-calendar-week text-primary me-2"></i>
-                                                    <span><strong>Duration:</strong><br/>12 Weeks</span>
-                                                </div>
-                                            </div>
-                                            <div className="col-sm-6">
-                                                <div className="d-flex align-items-center">
+                                                <div className="feature-item">
                                                     <i className="fas fa-users text-primary me-2"></i>
-                                                    <span><strong>Class Size:</strong><br/>15 Students</span>
+                                                    <div>
+                                                        <h5 className="mb-0">Class Size</h5>
+                                                        <p className="mb-0">{currentIntake.classSize}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="col-sm-6">
-                                                <div className="d-flex align-items-center">
-                                                    <i className="fas fa-dollar-sign text-primary me-2"></i>
-                                                    <span><strong>Fee:</strong><br/>Contact for Details</span>
+                                                <div className="feature-item">
+                                                    <i className="fas fa-tag text-primary me-2"></i>
+                                                    <div>
+                                                        <h5 className="mb-0">Fee</h5>
+                                                        <p className="mb-0">{currentIntake.fee}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="text-center mt-4">
-                                            <a href="/internship-registration" className="btn btn-primary px-4 py-2">
-                                                Apply Now <i className="fas fa-arrow-right ms-2"></i>
+                                            <a href="/internship-registration" 
+                                               className="btn btn-primary px-4 py-2 rounded-pill">
+                                                <i className="fas fa-paper-plane me-2"></i>
+                                                Apply Now
                                             </a>
                                         </div>
                                     </div>
@@ -257,50 +300,64 @@ function Internship() {
                             </div>
                         </div>
 
-                        {/* Next Intake */}
-                        <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                        {/* Next Intake Card */}
+                        <div className="col-lg-6">
                             <div className="position-relative h-100">
-                                <div className="bg-white p-4 rounded shadow-sm h-100">
+                                <div className="bg-white p-4 rounded shadow-lg h-100 hover-scale">
                                     <div className="d-flex align-items-center mb-3">
                                         <div className="btn-lg-square bg-success rounded-circle me-3">
-                                            <i className="fas fa-calendar-plus text-white"></i>
+                                            <i className="fas fa-calendar-plus text-white fs-3"></i>
                                         </div>
-                                        <h4 className="mb-0">Next Intake</h4>
+                                        <h3 className="mb-0">Next Intake</h3>
                                     </div>
-                                    <span className="bg-success text-white px-3 py-1 rounded position-absolute" 
-                                          style={{ top: '20px', right: '20px' }}>
-                                        Coming Soon
-                                    </span>
+                                    <div className="bg-success text-white px-3 py-1 rounded position-absolute" 
+                                         style={{ top: '20px', right: '20px' }}>
+                                        <i className="fas fa-clock me-2"></i>{nextIntake.status}
+                                    </div>
                                     <div className="border-top mt-4 pt-4">
                                         <div className="row g-4">
                                             <div className="col-sm-6">
-                                                <div className="d-flex align-items-center">
+                                                <div className="feature-item">
+                                                    <i className="fas fa-calendar-day text-success me-2"></i>
+                                                    <div>
+                                                        <h5 className="mb-0">Start Date</h5>
+                                                        <p className="mb-0">{nextIntake.startDate}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-sm-6">
+                                                <div className="feature-item">
                                                     <i className="fas fa-clock text-success me-2"></i>
-                                                    <span><strong>Start Date:</strong><br/>March 4, 2024</span>
+                                                    <div>
+                                                        <h5 className="mb-0">Duration</h5>
+                                                        <p className="mb-0">{nextIntake.duration}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="col-sm-6">
-                                                <div className="d-flex align-items-center">
-                                                    <i className="fas fa-calendar-week text-success me-2"></i>
-                                                    <span><strong>Duration:</strong><br/>16 Weeks</span>
-                                                </div>
-                                            </div>
-                                            <div className="col-sm-6">
-                                                <div className="d-flex align-items-center">
+                                                <div className="feature-item">
                                                     <i className="fas fa-users text-success me-2"></i>
-                                                    <span><strong>Class Size:</strong><br/>20 Students</span>
+                                                    <div>
+                                                        <h5 className="mb-0">Class Size</h5>
+                                                        <p className="mb-0">{nextIntake.classSize}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="col-sm-6">
-                                                <div className="d-flex align-items-center">
-                                                    <i className="fas fa-dollar-sign text-success me-2"></i>
-                                                    <span><strong>Fee:</strong><br/>Contact for Details</span>
+                                                <div className="feature-item">
+                                                    <i className="fas fa-tag text-success me-2"></i>
+                                                    <div>
+                                                        <h5 className="mb-0">Fee</h5>
+                                                        <p className="mb-0">{nextIntake.fee}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="text-center mt-4">
-                                            <a href="/waitlist-registration" className="btn btn-success px-4 py-2">
-                                                Join Waitlist <i className="fas fa-arrow-right ms-2"></i>
+                                            <a href="/waitlist-registration" 
+                                               className="btn btn-success px-4 py-2 rounded-pill">
+                                                <i className="fas fa-list-alt me-2"></i>
+                                                Join Waitlist
                                             </a>
                                         </div>
                                     </div>
@@ -308,50 +365,41 @@ function Internship() {
                             </div>
                         </div>
 
-                        {/* Short Courses */}
-                        <div className="col-12 wow fadeInUp" data-wow-delay="0.5s">
-                            <div className="bg-white p-4 rounded shadow-sm">
+                        {/* Short Courses Section */}
+                        <div className="col-12">
+                            <div className="bg-white p-4 rounded shadow-lg hover-scale">
                                 <div className="d-flex align-items-center mb-4">
                                     <div className="btn-lg-square bg-warning rounded-circle me-3">
-                                        <i className="fas fa-book text-white"></i>
+                                        <i className="fas fa-book text-white fs-3"></i>
                                     </div>
-                                    <h4 className="mb-0">Short Courses</h4>
+                                    <h3 className="mb-0">Short Courses</h3>
                                     <span className="bg-warning text-dark px-3 py-1 rounded ms-auto">
-                                        Flexible Schedule
+                                        <i className="fas fa-clock me-2"></i>Flexible Schedule
                                     </span>
                                 </div>
                                 <div className="row g-4">
-                                    <div className="col-md-4">
-                                        <div className="d-flex align-items-center border rounded p-3">
-                                            <i className="fas fa-code text-warning fs-3 me-3"></i>
-                                            <div>
-                                                <h5 className="mb-1">Web Development</h5>
-                                                <span>6 Weeks | Weekend Classes</span>
+                                    {shortCourses.map(course => (
+                                        <div key={course.id} className="col-md-4">
+                                            <div className="course-card border rounded p-4 h-100 hover-scale">
+                                                <i className={`${course.icon} text-warning fs-2 mb-3`}></i>
+                                                <h4>{course.name}</h4>
+                                                <p className="text-muted mb-3">{course.duration} | {course.schedule}</p>
+                                                <ul className="list-unstyled mb-0">
+                                                    {course.features.map((feature, index) => (
+                                                        <li key={index}>
+                                                            <i className="fas fa-check text-warning me-2"></i>
+                                                            {feature}
+                                                        </li>
+                                                    ))}
+                                                </ul>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="col-md-4">
-                                        <div className="d-flex align-items-center border rounded p-3">
-                                            <i className="fas fa-network-wired text-warning fs-3 me-3"></i>
-                                            <div>
-                                                <h5 className="mb-1">Networking</h5>
-                                                <span>4 Weeks | Evening Classes</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4">
-                                        <div className="d-flex align-items-center border rounded p-3">
-                                            <i className="fas fa-shield-alt text-warning fs-3 me-3"></i>
-                                            <div>
-                                                <h5 className="mb-1">Security Systems</h5>
-                                                <span>8 Weeks | Flexible Hours</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    ))}
                                 </div>
                                 <div className="text-center mt-4">
-                                    <a href="/courses" className="btn btn-warning px-4 py-2">
-                                        View All Courses <i className="fas fa-arrow-right ms-2"></i>
+                                    <a href="/courses" className="btn btn-warning px-4 py-2 rounded-pill">
+                                        <i className="fas fa-graduation-cap me-2"></i>
+                                        View All Courses
                                     </a>
                                 </div>
                             </div>
