@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { trainingData } from '../data/trainingData'
+import TrainingService from '../services/TrainingService'
 
 function Internship() {
-    const { currentIntake, nextIntake, shortCourses } = trainingData;
+    const [currentIntake, setCurrentIntake] = useState(trainingData.currentIntake);
+    const [nextIntake, setNextIntake] = useState(trainingData.nextIntake);
+    const [shortCourses, setShortCourses] = useState(trainingData.shortCourses);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -85,7 +88,7 @@ function Internship() {
                     <nav className="navbar navbar-expand-lg navbar-dark bg-white py-3 px-4">
                         <a href="index.html" className="navbar-brand p-0">
                             {/* <!-- <h1 classNameName="text-primary m-0"><i classNameName="fas fa-donate me-3"></i>Investa</h1> --> */}
-                            <img src="img/logoF.jpg.png" alt="Logo" style={{ height: '40px' }} />
+                            <img src="img/F_logo.png" alt="Logo" style={{ height: '40px' }} />
                         </a>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                             <span className="fa fa-bars"></span>
@@ -487,7 +490,7 @@ function Internship() {
                             <div className="footer-item d-flex flex-column">
                                 <div className="footer-item">
                                     {/* Company logo */}
-                                    <img src="img/logoF.jpg.png" alt="Company Logo" style={{ width: "150px", height: "auto" }} className="mb-4" />
+                                    <img src="img/F_logo.png" alt="Company Logo" style={{ width: "150px", height: "auto" }} className="mb-4" />
 
                                     {/* Company description */}
                                     <p className="mb-3">
